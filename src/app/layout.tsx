@@ -30,9 +30,16 @@ export const metadata: Metadata = {
     title: "Brioches C.A. - Panes Tradicionales y Gourmet",
     description: "Tradición y calidad en cada pan. Especializados en panes tradicionales, gourmet y repostería artesanal.",
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
+  icons: [
+    {
+      rel: "icon",
+      url: "/icon",
+    },
+    {
+      rel: "apple-touch-icon", 
+      url: "/icon",
+    },
+  ],
 };
 
 export default function RootLayout({
