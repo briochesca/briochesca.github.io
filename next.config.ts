@@ -4,8 +4,7 @@ const nextConfig: NextConfig = {
   // Solo aplicar configuración de export en build de producción
   ...(process.env.NODE_ENV === 'production' && {
     output: 'export',
-    basePath: '/LandingBriochesca',
-    assetPrefix: '/LandingBriochesca/',
+    // Sin basePath ni assetPrefix para repositorio raíz
   }),
   trailingSlash: true,
   images: {
