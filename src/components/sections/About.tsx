@@ -117,7 +117,7 @@ export default function About() {
           <div className="bg-gradient-to-r from-primary-wine to-primary-blue rounded-3xl p-1">
             <div className="bg-white rounded-3xl p-8 md:p-12">
               <h3 className="text-2xl md:text-3xl font-black text-gray-900 mb-4">
-                "Tradición, Calidad y Sabor en cada producto"
+                &ldquo;Tradición, Calidad y Sabor en cada producto&rdquo;
               </h3>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                 J-501233055 - Empresa familiar venezolana comprometida con la excelencia culinaria
