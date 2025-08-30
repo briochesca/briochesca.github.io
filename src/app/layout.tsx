@@ -9,7 +9,6 @@ export const metadata: Metadata = {
   creator: "Brioches C.A.",
   publisher: "Brioches C.A.",
   robots: "index, follow",
-  googlebot: "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1",
   openGraph: {
     title: "Brioches C.A. - Panes Tradicionales y Gourmet",
     description: "Tradición y calidad en cada pan. Especializados en panes tradicionales, gourmet y repostería artesanal.",
