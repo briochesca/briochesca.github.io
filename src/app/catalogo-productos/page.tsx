@@ -14,9 +14,14 @@ import {
   Cookie,
   Croissant,
   MessageCircle,
-  Phone
+  Phone,
+  ShoppingCart,
+  Plus
 } from 'lucide-react'
+import { FaWhatsapp } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
+import { CartProvider, useCart } from '@/contexts/CartContext'
+import FloatingCart from '@/components/cart/FloatingCart'
 
 interface Product {
   id: number
@@ -30,7 +35,7 @@ interface Product {
   ingredients: string[]
 }
 
-export default function CatalogoProductos() {
+function CatalogoProductosContent() {
   const router = useRouter()
   const [selectedCategory, setSelectedCategory] = useState('todos')
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
@@ -138,30 +143,43 @@ export default function CatalogoProductos() {
     ? products 
     : products.filter(product => product.category === selectedCategory)
 
+  const { addToCart } = useCart()
+
   const orderWhatsApp = (product: Product) => {
     const message = `¡Hola! Me interesa ordenar: ${product.name} - ${product.price}`
     window.open(`https://wa.me/584140898289?text=${encodeURIComponent(message)}`, '_blank')
   }
 
+  const handleAddToCart = (product: Product) => {
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      category: product.category
+    })
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-wine-50 via-white to-green-50">
+      <FloatingCart />
       {/* Header */}
       <div className="bg-white shadow-lg sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4">
+        <div className="max-w-7xl mx-auto px-4 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => router.push('/')}
-              className="flex items-center space-x-2 text-wine-600 hover:text-wine-700 transition-colors"
+              className="flex items-center space-x-1 sm:space-x-2 text-wine-600 hover:text-wine-700 transition-colors"
             >
-              <ArrowLeft className="w-5 h-5" />
-              <span className="font-medium">Volver</span>
+              <ArrowLeft className="w-4 sm:w-5 h-4 sm:h-5" />
+              <span className="font-medium text-sm sm:text-base">Volver</span>
             </motion.button>
             
-            <h1 className="text-2xl font-bold text-wine-700">Catálogo de Productos</h1>
+            <h1 className="text-lg sm:text-2xl font-bold text-wine-700 text-center flex-1 mx-4">Catálogo de Productos</h1>
             
-            <div className="text-sm text-gray-600">
+            <div className="text-xs sm:text-sm text-gray-600 hidden sm:block">
               Enero 2025
             </div>
           </div>
@@ -171,28 +189,29 @@ export default function CatalogoProductos() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Category Filter */}
         <div className="mb-8">
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="flex flex-wrap gap-2 sm:gap-3 justify-center px-2">
             {categories.map((category) => (
               <motion.button
                 key={category.id}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-full transition-all ${
+                className={`flex items-center space-x-1 sm:space-x-2 px-3 sm:px-6 py-2 sm:py-3 rounded-full transition-all text-sm sm:text-base ${
                   selectedCategory === category.id
                     ? 'bg-wine-600 text-white shadow-lg'
                     : 'bg-white text-wine-600 border border-wine-200 hover:bg-wine-50'
                 }`}
               >
-                <category.icon className="w-5 h-5" />
-                <span className="font-medium">{category.name}</span>
+                <category.icon className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="font-medium hidden xs:inline sm:inline">{category.name}</span>
+                <span className="font-medium xs:hidden sm:hidden">{category.name.slice(0, 3)}</span>
               </motion.button>
             ))}
           </div>
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {filteredProducts.map((product, index) => (
             <motion.div
               key={product.id}
@@ -202,8 +221,8 @@ export default function CatalogoProductos() {
               className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
             >
               {/* Product Image */}
-              <div className="relative bg-gradient-to-br from-wine-100 to-green-100 h-48 flex items-center justify-center">
-                <div className="text-6xl">{product.image}</div>
+              <div className="relative bg-gradient-to-br from-wine-100 to-green-100 h-40 sm:h-48 flex items-center justify-center">
+                <div className="text-5xl sm:text-6xl">{product.image}</div>
                 {product.isPopular && (
                   <div className="absolute top-3 right-3 bg-yellow-500 text-white px-2 py-1 rounded-full flex items-center space-x-1 text-xs font-bold">
                     <Star className="w-3 h-3 fill-current" />
@@ -213,22 +232,22 @@ export default function CatalogoProductos() {
               </div>
 
               {/* Product Info */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-wine-700 mb-2 group-hover:text-wine-800 transition-colors">
+              <div className="p-4 sm:p-6">
+                <h3 className="text-lg sm:text-xl font-bold text-wine-700 mb-2 group-hover:text-wine-800 transition-colors">
                   {product.name}
                 </h3>
                 
-                <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                <p className="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-2">
                   {product.description}
                 </p>
 
-                <div className="flex items-center justify-between mb-4">
-                  <div className="text-lg font-bold text-green-600">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 gap-2">
+                  <div className="text-base sm:text-lg font-bold text-green-600">
                     {product.price}
                   </div>
                   <div className="flex items-center space-x-1 text-xs text-gray-500">
                     <Clock className="w-3 h-3" />
-                    <span>{product.preparationTime}</span>
+                    <span className="text-xs">{product.preparationTime}</span>
                   </div>
                 </div>
 
@@ -237,21 +256,36 @@ export default function CatalogoProductos() {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => orderWhatsApp(product)}
-                    className="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-medium flex items-center justify-center space-x-2 transition-colors"
+                    onClick={() => handleAddToCart(product)}
+                    className="w-full bg-wine-600 hover:bg-wine-700 text-white py-2 sm:py-3 rounded-lg font-medium flex items-center justify-center space-x-2 transition-colors text-sm sm:text-base"
                   >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>Ordenar por WhatsApp</span>
+                    <Plus className="w-4 h-4" />
+                    <span className="hidden sm:inline">Agregar al Carrito</span>
+                    <span className="sm:hidden">Agregar</span>
                   </motion.button>
                   
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setSelectedProduct(product)}
-                    className="w-full bg-wine-100 hover:bg-wine-200 text-wine-700 py-2 rounded-lg font-medium transition-colors"
-                  >
-                    Ver Detalles
-                  </motion.button>
+                  <div className="grid grid-cols-2 gap-2">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => orderWhatsApp(product)}
+                      className="bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-medium flex items-center justify-center space-x-1 transition-colors text-xs sm:text-sm"
+                    >
+                      <FaWhatsapp className="w-3 h-3" />
+                      <span className="hidden sm:inline">Directo</span>
+                      <span className="sm:hidden">Directo</span>
+                    </motion.button>
+                    
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setSelectedProduct(product)}
+                      className="bg-wine-100 hover:bg-wine-200 text-wine-700 py-2 rounded-lg font-medium transition-colors text-xs sm:text-sm"
+                    >
+                      <span className="hidden sm:inline">Ver</span>
+                      <span className="sm:hidden">Ver</span>
+                    </motion.button>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -259,29 +293,29 @@ export default function CatalogoProductos() {
         </div>
 
         {/* Contact Section */}
-        <div className="mt-16 text-center">
-          <div className="bg-white rounded-2xl shadow-lg p-8 max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold text-wine-700 mb-4">¿Necesitas algo especial?</h2>
-            <p className="text-gray-600 mb-6">
+        <div className="mt-12 sm:mt-16 text-center px-4">
+          <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 max-w-2xl mx-auto">
+            <h2 className="text-xl sm:text-2xl font-bold text-wine-700 mb-4">¿Necesitas algo especial?</h2>
+            <p className="text-sm sm:text-base text-gray-600 mb-6">
               Hacemos pedidos personalizados y tortas para ocasiones especiales
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => window.open('https://wa.me/584140898289?text=Hola, necesito hacer un pedido personalizado', '_blank')}
-                className="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2"
+                className="bg-green-500 hover:bg-green-600 text-white px-4 sm:px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2 text-sm sm:text-base"
               >
-                <MessageCircle className="w-5 h-5" />
+                <FaWhatsapp className="w-4 sm:w-5 h-4 sm:h-5" />
                 <span>WhatsApp</span>
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => window.open('tel:+584140898289', '_blank')}
-                className="bg-wine-600 hover:bg-wine-700 text-white px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2"
+                className="bg-wine-600 hover:bg-wine-700 text-white px-4 sm:px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2 text-sm sm:text-base"
               >
-                <Phone className="w-5 h-5" />
+                <Phone className="w-4 sm:w-5 h-4 sm:h-5" />
                 <span>Llamar</span>
               </motion.button>
             </div>
@@ -345,23 +379,46 @@ export default function CatalogoProductos() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => orderWhatsApp(selectedProduct)}
-                className="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-medium flex items-center justify-center space-x-2"
+                onClick={() => {
+                  handleAddToCart(selectedProduct)
+                  setSelectedProduct(null)
+                }}
+                className="w-full bg-wine-600 hover:bg-wine-700 text-white py-3 rounded-lg font-medium flex items-center justify-center space-x-2"
               >
-                <MessageCircle className="w-4 h-4" />
-                <span>Ordenar por WhatsApp</span>
+                <Plus className="w-4 h-4" />
+                <span>Agregar al Carrito</span>
               </motion.button>
               
-              <button
-                onClick={() => setSelectedProduct(null)}
-                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-lg font-medium transition-colors"
-              >
-                Cerrar
-              </button>
+              <div className="grid grid-cols-2 gap-3">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => orderWhatsApp(selectedProduct)}
+                  className="bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-medium flex items-center justify-center space-x-2"
+                >
+                  <FaWhatsapp className="w-4 h-4" />
+                  <span>Directo</span>
+                </motion.button>
+                
+                <button
+                  onClick={() => setSelectedProduct(null)}
+                  className="bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-lg font-medium transition-colors"
+                >
+                  Cerrar
+                </button>
+              </div>
             </div>
           </motion.div>
         </motion.div>
       )}
     </div>
+  )
+}
+
+export default function CatalogoProductos() {
+  return (
+    <CartProvider>
+      <CatalogoProductosContent />
+    </CartProvider>
   )
 }
