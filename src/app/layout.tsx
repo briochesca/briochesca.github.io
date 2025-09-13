@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from 'next/font/google';
 import "./globals.css";
+import { CartProvider } from '@/contexts/CartContext';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -50,7 +51,9 @@ export default function RootLayout({
   return (
     <html lang="es" className={montserrat.variable}>
       <body className="antialiased font-montserrat">
-        {children}
+        <CartProvider>
+          {children}
+        </CartProvider>
       </body>
     </html>
   );

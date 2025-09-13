@@ -20,7 +20,7 @@ export default function About() {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary-wine to-primary-orange mx-auto rounded-full"></div>
           <p className="text-xl text-gray-600 mt-6 max-w-3xl mx-auto">
-            Una empresa familiar venezolana dedicada a la excelencia culinaria desde hace más de una década
+            Una empresa familiar venezolana dedicada a la excelencia culinaria, construyendo tradición con cada producto artesanal
           </p>
         </motion.div>
 
@@ -51,7 +51,7 @@ export default function About() {
             {/* Stats */}
             <div className="grid grid-cols-2 gap-6 mt-8">
               <div className="text-center p-4 bg-white rounded-xl shadow-sm border border-gray-100">
-                <div className="text-3xl font-black text-primary-wine mb-2">+10</div>
+                <div className="text-3xl font-black text-primary-wine mb-2">+4</div>
                 <div className="text-sm text-gray-600 font-medium">Años de Experiencia</div>
               </div>
               <div className="text-center p-4 bg-white rounded-xl shadow-sm border border-gray-100">
@@ -74,10 +74,16 @@ export default function About() {
               <div className="bg-gradient-to-br from-primary-wine/10 to-primary-blue/10 rounded-3xl p-8 shadow-xl">
                 <div className="bg-white rounded-2xl p-8 shadow-lg">
                   <div className="text-center space-y-6">
-                    <div className="text-8xl">🍞</div>
+                    <div className="mb-4 flex justify-center">
+                      <img 
+                        src="/maestros-panaderos.jpeg" 
+                        alt="Maestros Panaderos de Brioches C.A." 
+                        className="max-w-xs h-auto object-contain rounded-xl shadow-lg"
+                      />
+                    </div>
                     <h3 className="text-2xl font-black text-gray-900">Maestros Panaderos</h3>
                     <p className="text-gray-600 leading-relaxed">
-                      Artesanos especializados creando productos únicos con décadas de experiencia y técnicas transmitidas de generación en generación
+                      Artesanos especializados creando productos únicos con técnicas ancestrales transmitidas de generación en generación
                     </p>
                     
                     {/* Values */}
@@ -120,7 +126,7 @@ export default function About() {
                 &ldquo;Tradición, Calidad y Sabor en cada producto&rdquo;
               </h3>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                J-501233055 - Empresa familiar venezolana comprometida con la excelencia culinaria
+                Empresa familiar venezolana comprometida con la excelencia culinaria
               </p>
             </div>
           </div>

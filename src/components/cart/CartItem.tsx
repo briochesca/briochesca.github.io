@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { Minus, Plus, Trash2 } from 'lucide-react'
 import { CartItem as CartItemType, useCart } from '@/contexts/CartContext'
+import Image from 'next/image'
 
 interface CartItemProps {
   item: CartItemType
@@ -23,8 +24,18 @@ export default function CartItem({ item }: CartItemProps) {
       className="flex items-center space-x-3 bg-gray-50 rounded-lg p-3"
     >
       {/* Product Image */}
-      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-wine-100 to-green-100 rounded-lg flex items-center justify-center">
-        <span className="text-2xl">{item.image}</span>
+      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-orange-100 via-yellow-50 to-orange-100 rounded-lg flex items-center justify-center overflow-hidden">
+        {item.image.startsWith('/') ? (
+          <Image
+            src={item.image}
+            alt={item.name}
+            width={48}
+            height={48}
+            className="object-contain w-full h-full"
+          />
+        ) : (
+          <span className="text-xl">{item.image}</span>
+        )}
       </div>
 
       {/* Product Info */}

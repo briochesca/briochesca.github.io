@@ -71,7 +71,7 @@ export default function Footer() {
                 transition={{ delay: 0.2, duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                Más de <span className="text-primary-green font-semibold">15 años</span> creando momentos especiales con nuestros panes tradicionales y gourmet. 
+                Más de <span className="text-primary-green font-semibold">4 años</span> creando momentos especiales con nuestros panes tradicionales y gourmet. 
                 <span className="text-primary-orange font-medium"> Tradición familiar venezolana.</span>
               </motion.p>
               
@@ -133,17 +133,17 @@ export default function Footer() {
                 <div className="flex items-center space-x-3 text-gray-300">
                   <Phone className="w-4 h-4 text-primary-blue flex-shrink-0" />
                   <div className="text-sm">
-                    <p>+58 424 123 4567</p>
-                    <p>+58 212 987 6543</p>
+                    <p>+58 412 958 6725</p>
+                    <p>+58 414 089 8289</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-3 text-gray-300">
                   <Mail className="w-4 h-4 text-primary-orange flex-shrink-0" />
-                  <p className="text-sm">info@briochesca.com</p>
+                  <p className="text-sm">briochesca@gmail.com</p>
                 </div>
                 <div className="flex items-start space-x-3 text-gray-300">
                   <MapPin className="w-4 h-4 text-primary-wine flex-shrink-0 mt-0.5" />
-                  <p className="text-sm">Caracas, Venezuela</p>
+                  <p className="text-sm">Cumana, Estado Sucre</p>
                 </div>
                 <div className="flex items-center space-x-3 text-gray-300">
                   <Clock className="w-4 h-4 text-primary-green flex-shrink-0" />
@@ -188,22 +188,27 @@ export default function Footer() {
               transition={{ delay: 1, duration: 0.6 }}
               viewport={{ once: true }}
             >
-              {/* Facebook - Azul original */}
-              <button className="w-10 h-10 bg-[#1877F2] hover:bg-[#166FE5] rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25">
-                <Facebook className="w-4 h-4 text-white" />
-              </button>
-              
               {/* Instagram - Gradiente original */}
-              <button className="w-10 h-10 bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737] hover:opacity-90 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/25">
+              <a 
+                href="https://instagram.com/brioches.ca" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737] hover:opacity-90 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/25"
+              >
                 <Instagram className="w-4 h-4 text-white" />
-              </button>
+              </a>
               
               {/* WhatsApp - Verde original */}
-              <button className="w-10 h-10 bg-[#25D366] hover:bg-[#128C7E] rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25">
+              <a 
+                href="https://wa.me/584129586725" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-[#25D366] hover:bg-[#128C7E] rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25"
+              >
                 <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.570-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.484 3.488"/>
                 </svg>
-              </button>
+              </a>
               
               {/* Email - Gris elegante */}
               <button className="w-10 h-10 bg-gray-600 hover:bg-gray-500 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-300 hover:shadow-lg hover:shadow-gray-500/25">

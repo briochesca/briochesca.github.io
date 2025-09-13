@@ -1,27 +1,36 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const processes = [
   {
     icon: "🌾",
     title: "Selección de Ingredientes",
-    description: "Seleccionamos cuidadosamente cada ingrediente, desde harinas de la más alta calidad hasta levaduras naturales y especias importadas, garantizando la excelencia en cada producto."
+    description: "Seleccionamos cuidadosamente cada ingrediente, desde harinas de la más alta calidad hasta levaduras naturales y especias importadas, garantizando la excelencia en cada producto.",
+    image: "/proceso1.jpeg",
+    alt: "Ingredientes de alta calidad para panadería artesanal"
   },
   {
     icon: "👨‍🍳",
     title: "Amasado Artesanal",
-    description: "Nuestros maestros panaderos utilizan técnicas tradicionales de amasado, respetando los tiempos de fermentación natural para desarrollar sabores únicos y texturas perfectas."
+    description: "Nuestros maestros panaderos utilizan técnicas tradicionales de amasado, respetando los tiempos de fermentación natural para desarrollar sabores únicos y texturas perfectas.",
+    image: "/proceso2.jpeg",
+    alt: "Maestro panadero amasando artesanalmente en panadería tradicional"
   },
   {
     icon: "🔥",
     title: "Horneado Tradicional",
-    description: "Cada pan se hornea en nuestros hornos tradicionales a temperaturas precisas, siguiendo recetas familiares transmitidas de generación en generación."
+    description: "Cada pan se hornea en nuestros hornos tradicionales a temperaturas precisas, siguiendo recetas familiares transmitidas de generación en generación.",
+    image: "/proceso3.jpeg",
+    alt: "Panadero sacando pan recién horneado del horno tradicional"
   },
   {
     icon: "✅",
     title: "Control de Calidad",
-    description: "Implementamos rigurosos controles de calidad en cada etapa del proceso, asegurando que solo los mejores productos lleguen a nuestros clientes."
+    description: "Implementamos rigurosos controles de calidad en cada etapa del proceso, asegurando que solo los mejores productos lleguen a nuestros clientes.",
+    image: "/proceso4.png",
+    alt: "Panadera realizando control de calidad de panes artesanales"
   }
 ];
 
@@ -59,8 +68,20 @@ export default function Process() {
             >
               <div className="text-center">
                 <div className="text-6xl mb-4">{process.icon}</div>
-                <div className="h-32 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl mb-6 flex items-center justify-center">
-                  <span className="text-gray-500 text-sm font-medium">PROCESO {index + 1}</span>
+                <div className="h-32 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl mb-6 overflow-hidden relative">
+                  {process.image ? (
+                    <Image
+                      src={process.image}
+                      alt={process.alt || `Proceso ${index + 1}`}
+                      fill
+                      className="object-cover rounded-xl"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    />
+                  ) : (
+                    <div className="h-full flex items-center justify-center">
+                      <span className="text-gray-500 text-sm font-medium">PROCESO {index + 1}</span>
+                    </div>
+                  )}
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-4">{process.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{process.description}</p>

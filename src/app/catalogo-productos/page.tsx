@@ -18,9 +18,10 @@ import {
   ShoppingCart,
   Plus
 } from 'lucide-react'
+import Image from 'next/image'
 import { FaWhatsapp } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
-import { CartProvider, useCart } from '@/contexts/CartContext'
+import { useCart } from '@/contexts/CartContext'
 import FloatingCart from '@/components/cart/FloatingCart'
 
 interface Product {
@@ -49,30 +50,77 @@ function CatalogoProductosContent() {
   ]
 
   const products: Product[] = [
+    // === PRODUCTOS DISPONIBLES CON IMÁGENES REALES ===
     {
       id: 1,
+      name: "Acema Andina",
+      category: "tradicionales",
+      description: "Pan tradicional venezolano, suave y esponjoso, perfecto para acompañar cualquier comida. Elaborado con técnicas artesanales y receta ancestral.",
+      price: "Bs. 8.50 (paquete)",
+      image: "/acema-andina-transparent.png",
+      isPopular: true,
+      preparationTime: "5 horas",
+      ingredients: ["Harina de trigo", "Agua", "Sal", "Levadura", "Azúcar", "Manteca"]
+    },
+    {
+      id: 2,
+      name: "Pan de Hamburguesa",
+      category: "gourmet",
+      description: "Pan fresco y suave especialmente diseñado para hamburguesas. Con la textura perfecta para mantener todos los ingredientes en su lugar.",
+      price: "Bs. 12.00 (paquete de 6)",
+      image: "/pan-hamburguesa.webp",
+      isPopular: true,
+      preparationTime: "4 horas",
+      ingredients: ["Harina de trigo", "Leche", "Mantequilla", "Huevo", "Semillas de sésamo", "Levadura"]
+    },
+    {
+      id: 3,
+      name: "Arepas de Yuca",
+      category: "gourmet",
+      description: "Deliciosas arepas elaboradas con yuca fresca, una alternativa única y sabrosa a las arepas tradicionales. Sin gluten y llenas de sabor.",
+      price: "Bs. 10.00 (paquete de 6)",
+      image: "/arepa-yuca.webp",
+      isPopular: true,
+      preparationTime: "3 horas",
+      ingredients: ["Yuca fresca", "Sal", "Aceite vegetal", "Agua"]
+    },
+    {
+      id: 4,
+      name: "Bolos de Canela",
+      category: "postres",
+      description: "Deliciosos dulces tradicionales venezolanos con canela, perfectos para acompañar el café o como postre. Suaves, aromáticos y llenos de sabor casero.",
+      price: "Bs. 15.00 (bandeja)",
+      image: "/bolos-canela-completo.png",
+      isPopular: true,
+      preparationTime: "4 horas",
+      ingredients: ["Harina de trigo", "Azúcar", "Mantequilla", "Huevos", "Canela", "Vainilla"]
+    },
+    
+    // === PRODUCTOS FUTUROS (Para referencia y desarrollo futuro) ===
+    {
+      id: 5,
       name: "Pan Canilla Tradicional",
       category: "tradicionales",
       description: "Nuestro clásico pan canilla, elaborado con receta tradicional venezolana desde 1950",
       price: "Desde Bs. 2.50",
       image: "🥖",
-      isPopular: true,
+      isPopular: false,
       preparationTime: "4 horas",
       ingredients: ["Harina de trigo", "Agua", "Sal", "Levadura", "Azúcar"]
     },
     {
-      id: 2,
+      id: 6,
       name: "Pan de Jamón Navideño",
       category: "gourmet",
       description: "Especialidad navideña con jamón, aceitunas, pasas y papelón",
       price: "Bs. 25.00 - 45.00",
       image: "🎄",
-      isPopular: true,
+      isPopular: false,
       preparationTime: "6 horas",
       ingredients: ["Masa brioche", "Jamón ahumado", "Aceitunas", "Pasas", "Papelón"]
     },
     {
-      id: 3,
+      id: 7,
       name: "Croissant de Mantequilla",
       category: "gourmet",
       description: "Croissant francés con capas perfectas de mantequilla artesanal",
@@ -83,29 +131,29 @@ function CatalogoProductosContent() {
       ingredients: ["Harina francesa", "Mantequilla europea", "Huevo", "Leche"]
     },
     {
-      id: 4,
+      id: 8,
       name: "Torta Tres Leches",
       category: "postres",
       description: "Clásica torta tres leches con canela y crema batida",
       price: "Bs. 35.00 (8 porciones)",
       image: "🍰",
-      isPopular: true,
+      isPopular: false,
       preparationTime: "3 horas + refrigeración",
       ingredients: ["Bizcocho esponja", "Leche condensada", "Leche evaporada", "Crema de leche"]
     },
     {
-      id: 5,
+      id: 9,
       name: "Quesillo Casero",
       category: "postres",
       description: "Tradicional quesillo venezolano con caramelo de papelón",
       price: "Bs. 18.00",
       image: "🍮",
-      isPopular: true,
+      isPopular: false,
       preparationTime: "2 horas + refrigeración",
       ingredients: ["Huevos", "Leche condensada", "Leche líquida", "Papelón", "Vainilla"]
     },
     {
-      id: 6,
+      id: 10,
       name: "Café Tostado Venezolano",
       category: "bebidas",
       description: "Café 100% venezolano, tostado artesanalmente",
@@ -116,24 +164,24 @@ function CatalogoProductosContent() {
       ingredients: ["Granos de café venezolano", "Tostado medio"]
     },
     {
-      id: 7,
+      id: 11,
       name: "Cachitos de Jamón",
       category: "tradicionales",
       description: "Tiernos cachitos rellenos de jamón ahumado",
       price: "Bs. 4.50 c/u",
       image: "🌭",
-      isPopular: true,
+      isPopular: false,
       preparationTime: "3 horas",
       ingredients: ["Masa de pan", "Jamón ahumado", "Queso blanco"]
     },
     {
-      id: 8,
+      id: 12,
       name: "Golfeados Tradicionales",
       category: "tradicionales",
       description: "Dulces golfeados con papelón y queso blanco rallado",
       price: "Bs. 6.00 c/u",
       image: "🍯",
-      isPopular: true,
+      isPopular: false,
       preparationTime: "4 horas",
       ingredients: ["Masa dulce", "Papelón", "Queso blanco", "Anís"]
     }
@@ -147,7 +195,7 @@ function CatalogoProductosContent() {
 
   const orderWhatsApp = (product: Product) => {
     const message = `¡Hola! Me interesa ordenar: ${product.name} - ${product.price}`
-    window.open(`https://wa.me/584140898289?text=${encodeURIComponent(message)}`, '_blank')
+    window.open(`https://wa.me/584129586725?text=${encodeURIComponent(message)}`, '_blank')
   }
 
   const handleAddToCart = (product: Product) => {
@@ -221,8 +269,18 @@ function CatalogoProductosContent() {
               className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
             >
               {/* Product Image */}
-              <div className="relative bg-gradient-to-br from-wine-100 to-green-100 h-40 sm:h-48 flex items-center justify-center">
-                <div className="text-5xl sm:text-6xl">{product.image}</div>
+              <div className="relative bg-gradient-to-br from-orange-100 via-yellow-50 to-orange-100 h-40 sm:h-48 flex items-center justify-center p-4">
+                {product.image.startsWith('/') ? (
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    width={180}
+                    height={160}
+                    className="object-contain max-h-36 w-auto"
+                  />
+                ) : (
+                  <div className="text-5xl sm:text-6xl">{product.image}</div>
+                )}
                 {product.isPopular && (
                   <div className="absolute top-3 right-3 bg-yellow-500 text-white px-2 py-1 rounded-full flex items-center space-x-1 text-xs font-bold">
                     <Star className="w-3 h-3 fill-current" />
@@ -303,7 +361,7 @@ function CatalogoProductosContent() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => window.open('https://wa.me/584140898289?text=Hola, necesito hacer un pedido personalizado', '_blank')}
+                onClick={() => window.open('https://wa.me/584129586725?text=Hola, necesito hacer un pedido personalizado', '_blank')}
                 className="bg-green-500 hover:bg-green-600 text-white px-4 sm:px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2 text-sm sm:text-base"
               >
                 <FaWhatsapp className="w-4 sm:w-5 h-4 sm:h-5" />
@@ -312,7 +370,7 @@ function CatalogoProductosContent() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => window.open('tel:+584140898289', '_blank')}
+                onClick={() => window.open('tel:+584129586725', '_blank')}
                 className="bg-wine-600 hover:bg-wine-700 text-white px-4 sm:px-6 py-3 rounded-lg font-medium flex items-center justify-center space-x-2 text-sm sm:text-base"
               >
                 <Phone className="w-4 sm:w-5 h-4 sm:h-5" />
@@ -340,7 +398,19 @@ function CatalogoProductosContent() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="text-center mb-6">
-              <div className="text-8xl mb-4">{selectedProduct.image}</div>
+              {selectedProduct.image.startsWith('/') ? (
+                <div className="mb-4 flex justify-center">
+                  <Image
+                    src={selectedProduct.image}
+                    alt={selectedProduct.name}
+                    width={200}
+                    height={200}
+                    className="object-contain max-h-48 w-auto"
+                  />
+                </div>
+              ) : (
+                <div className="text-8xl mb-4">{selectedProduct.image}</div>
+              )}
               <h2 className="text-2xl font-bold text-wine-700 mb-2">
                 {selectedProduct.name}
               </h2>
@@ -416,9 +486,5 @@ function CatalogoProductosContent() {
 }
 
 export default function CatalogoProductos() {
-  return (
-    <CartProvider>
-      <CatalogoProductosContent />
-    </CartProvider>
-  )
+  return <CatalogoProductosContent />
 }

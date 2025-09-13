@@ -16,7 +16,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
 
   const handleWhatsAppOrder = () => {
     const message = generateWhatsAppMessage()
-    const whatsappUrl = `https://wa.me/584140898289?text=${encodeURIComponent(message)}`
+    const whatsappUrl = `https://wa.me/584129586725?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')
     onClose()
   }

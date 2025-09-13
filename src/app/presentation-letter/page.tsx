@@ -31,7 +31,7 @@ export default function PresentationLetter() {
       subtitle: "Fotos de nuestros productos frescos diarios",
       icon: Instagram,
       color: "from-pink-500 to-purple-600",
-      action: () => window.open('https://instagram.com/briochesca', '_blank'),
+      action: () => window.open('https://instagram.com/brioches.ca', '_blank'),
       emoji: "📸"
     },
     {
@@ -39,7 +39,7 @@ export default function PresentationLetter() {
       subtitle: "[ORDEN PARA ENTREGA/ENVÍO INMEDIATO]",
       icon: FaWhatsapp,
       color: "from-green-500 to-green-600",
-      action: () => window.open('https://wa.me/584140898289?text=¡Hola! Me interesa hacer un pedido de Brioches C.A.', '_blank'),
+      action: () => window.open('https://wa.me/584129586725?text=¡Hola! Me interesa hacer un pedido de Brioches C.A.', '_blank'),
       emoji: "📱"
     },
     {
@@ -47,7 +47,7 @@ export default function PresentationLetter() {
       subtitle: "[Consultas y Pedidos Especiales]",
       icon: Phone,
       color: "from-wine-600 to-wine-700",
-      action: () => copyToClipboard('+58 414-089-8289'),
+      action: () => copyToClipboard('+58 412 958 6725'),
       emoji: "☎️"
     },
     {
@@ -111,7 +111,7 @@ export default function PresentationLetter() {
             </h1>
             <p className="text-xl text-wine-600 mb-2">RIF: J-501233055</p>
             <p className="text-lg text-gray-700 mb-6">
-              Panadería Artesanal Venezolana • Desde 2010
+              Panadería Artesanal Venezolana • Desde 2021
             </p>
           </motion.div>
 
@@ -179,7 +179,7 @@ export default function PresentationLetter() {
             <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-700">
               <div className="flex items-center justify-center space-x-2">
                 <MapPin className="w-4 h-4 text-wine-600" />
-                <span>Caracas, Venezuela</span>
+                <span>Cumana, Estado Sucre</span>
               </div>
               <div className="flex items-center justify-center space-x-2">
                 <Clock className="w-4 h-4 text-wine-600" />
@@ -187,7 +187,7 @@ export default function PresentationLetter() {
               </div>
               <div className="flex items-center justify-center space-x-2">
                 <ChefHat className="w-4 h-4 text-wine-600" />
-                <span>15+ años de experiencia</span>
+                <span>4+ años de experiencia</span>
               </div>
             </div>
           </motion.div>

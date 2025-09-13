@@ -4,34 +4,34 @@ import { motion } from "framer-motion";
 
 const timeline = [
   {
-    year: "2010",
+    year: "2021",
     title: "Fundación de la Empresa",
-    description: "Brioches C.A. inicia operaciones como una pequeña panadería familiar con la visión de crear productos artesanales de la más alta calidad."
+    description: "Brioches C.A. inicia operaciones como una pequeña panadería familiar con la visión de crear productos artesanales de la más alta calidad, aplicando técnicas que han pasado de generación en generación por años."
   },
   {
-    year: "2013",
+    year: "2022",
     title: "Expansión de la Línea Gourmet",
     description: "Introducimos nuestra línea de panes gourmet, incorporando ingredientes premium y técnicas innovadoras que nos distinguen en el mercado."
   },
   {
-    year: "2016",
-    title: "Certificaciones de Calidad",
-    description: "Obtenemos importantes certificaciones de calidad e higiene alimentaria, consolidando nuestra reputación en el sector."
+    year: "2023",
+    title: "Reconocimiento Regional",
+    description: "Nos hemos dado a conocer a nivel regional debido a la alta calidad de nuestros productos, donde cada vez hemos ido ganando más reputación y reconocimiento entre nuestros clientes."
   },
   {
-    year: "2019",
-    title: "Nueva Planta de Producción",
-    description: "Inauguramos nuestras nuevas instalaciones con tecnología de vanguardia, manteniendo siempre el toque artesanal que nos caracteriza."
+    year: "2024",
+    title: "Diversificación de Productos",
+    description: "Hemos ido agregando productos no solo artesanales y gourmet, sino también una gran variedad de postres únicos en la región, ampliando nuestra oferta gastronómica."
   },
   {
-    year: "2022",
-    title: "Reconocimiento Nacional",
-    description: "Recibimos el premio a la \"Mejor Panadería Artesanal\" a nivel nacional, reconociendo nuestro compromiso con la excelencia."
+    year: "2024",
+    title: "Consolidación Empresarial",
+    description: "Cada vez más la empresa ha ido tomando forma sólida, expandiendo nuestras bases y fortaleciendo nuestra presencia en el mercado regional con productos de calidad superior."
   },
   {
     year: "2025",
-    title: "Presente",
-    description: "Continuamos innovando y creciendo, manteniendo siempre nuestros valores de calidad, tradición y compromiso con nuestros clientes."
+    title: "Presente y Futuro",
+    description: "Continuamos creciendo con bases sólidas y compromiso inquebrantable. Seguiremos mejorando nuestros productos y añadiendo cada vez más variedad a nuestra producción artesanal."
   }
 ];
 

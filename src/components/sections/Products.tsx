@@ -1,27 +1,38 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { ExternalLink, ShoppingCart } from "lucide-react";
 
 const products = [
   {
     icon: "🥖",
-    title: "Panes Tradicionales",
-    description: "Pan francés, integral, de molde y campesino. Elaborados con recetas tradicionales que han sido perfeccionadas a lo largo de los años."
+    title: "Acema Andina",
+    description: "Pan tradicional venezolano, suave y esponjoso, perfecto para acompañar cualquier comida. Elaborado con técnicas artesanales y receta ancestral.",
+    image: "/acema-andina-transparent.png",
+    featured: true
   },
   {
-    icon: "🥐",
-    title: "Línea Gourmet",
-    description: "Panes especiales con ingredientes premium: pan de nueces, centeno, multicereales, focaccia y creaciones únicas de temporada."
+    icon: "🍔",
+    title: "Pan de Hamburguesa",
+    description: "Pan fresco y suave especialmente diseñado para hamburguesas. Con la textura perfecta para mantener todos los ingredientes en su lugar.",
+    image: "/pan-hamburguesa.webp",
+    featured: true
   },
   {
-    icon: "🧁",
-    title: "Repostería Artesanal",
-    description: "Tortas, pasteles, cookies, muffins y postres elaborados con técnicas artesanales y los mejores ingredientes naturales."
+    icon: "🫓",
+    title: "Arepas de Yuca",
+    description: "Deliciosas arepas elaboradas con yuca fresca, una alternativa única y sabrosa a las arepas tradicionales. Sin gluten y llenas de sabor.",
+    image: "/arepa-yuca.webp",
+    featured: true
   },
   {
-    icon: "🎂",
-    title: "Productos Especiales",
-    description: "Creaciones personalizadas para eventos, celebraciones y ocasiones especiales. Diseños únicos según tus necesidades."
+    icon: "🍩",
+    title: "Bolos de Canela",
+    description: "Deliciosos dulces tradicionales venezolanos con canela, perfectos para acompañar el café o como postre. Suaves, aromáticos y llenos de sabor casero.",
+    image: "/bolos-canela-completo.png",
+    featured: true
   }
 ];
 
@@ -58,9 +69,21 @@ export default function Products() {
               whileHover={{ y: -5 }}
             >
               <div className="relative">
-                <div className="h-48 bg-gradient-to-br from-orange-100 via-yellow-50 to-orange-100 flex items-center justify-center">
-                  <div className="text-8xl">{product.icon}</div>
-                </div>
+                {product.image && product.featured ? (
+                  <div className="h-48 bg-gradient-to-br from-orange-100 via-yellow-50 to-orange-100 flex justify-center items-start p-2">
+                    <Image
+                      src={product.image}
+                      alt={product.title}
+                      width={product.title === "Acema Andina" ? 320 : 240}
+                      height={product.title === "Acema Andina" ? 300 : 220}
+                      className={product.title === "Acema Andina" ? "object-contain h-48 w-auto mt-5" : product.title === "Arepas de Yuca" ? "object-contain h-44 w-auto mt-6" : product.title === "Bolos de Canela" ? "object-contain h-44 w-auto mt-6" : "object-contain h-44 w-auto mt-4"}
+                    />
+                  </div>
+                ) : (
+                  <div className="h-48 bg-gradient-to-br from-orange-100 via-yellow-50 to-orange-100 flex items-center justify-center">
+                    <div className="text-8xl">{product.icon}</div>
+                  </div>
+                )}
                 <div className="absolute top-4 right-4">
                   <div className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-semibold text-orange-600">
                     PRODUCTO
@@ -73,6 +96,36 @@ export default function Products() {
               </div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* Botón Ver Catálogo Completo */}
+        <motion.div 
+          className="text-center mt-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+        >
+          <Link href="/catalogo-productos">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-r from-primary-wine to-primary-blue text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center space-x-3 mx-auto"
+            >
+              <ShoppingCart className="w-6 h-6" />
+              <span>Ver Catálogo Completo</span>
+              <ExternalLink className="w-5 h-5" />
+            </motion.button>
+          </Link>
+          <motion.p 
+            className="text-gray-600 mt-3 text-sm"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            viewport={{ once: true }}
+          >
+            Descubre todos nuestros productos, precios y haz tu pedido online
+          </motion.p>
         </motion.div>
       </div>
     </section>
