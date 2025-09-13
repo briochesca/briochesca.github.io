@@ -123,7 +123,7 @@ export default function PresentationLetter() {
             className="mb-8"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-wine-800 mb-4">
-              Las calidades más altas de la industria
+              Tradición familiar, calidad excepcional
             </h2>
             <div className="flex items-center justify-center space-x-2 mb-6">
               <Star className="w-6 h-6 text-yellow-500 fill-current" />
