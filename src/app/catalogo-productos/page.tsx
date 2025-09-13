@@ -114,7 +114,7 @@ function CatalogoProductosContent() {
       category: "gourmet",
       description: "Especialidad navideña con jamón, aceitunas, pasas y papelón",
       price: "Bs. 25.00 - 45.00",
-      image: "🎄",
+      image: "/pan de jamon.png",
       isPopular: false,
       preparationTime: "6 horas",
       ingredients: ["Masa brioche", "Jamón ahumado", "Aceitunas", "Pasas", "Papelón"]
