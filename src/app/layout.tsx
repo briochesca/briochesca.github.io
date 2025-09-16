@@ -35,12 +35,15 @@ export const metadata: Metadata = {
     {
       rel: "icon",
       url: "/icon",
+      sizes: "512x512",
     },
     {
       rel: "apple-touch-icon", 
-      url: "/icon",
+      url: "/apple-icon",
+      sizes: "180x180",
     },
   ],
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
