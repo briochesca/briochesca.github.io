@@ -11,6 +11,11 @@ export interface CartItem {
   category: string
 }
 
+interface CartTotals {
+  ves: number
+  usd: number
+}
+
 interface CartContextType {
   items: CartItem[]
   addToCart: (product: Omit<CartItem, 'quantity'>) => void
@@ -18,6 +23,8 @@ interface CartContextType {
   updateQuantity: (productId: number, quantity: number) => void
   clearCart: () => void
   getTotalItems: () => number
+  getSubtotal: () => CartTotals
+  getTotal: () => CartTotals
   generateWhatsAppMessage: () => string
 }
 
@@ -88,21 +95,81 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     return items.reduce((total, item) => total + item.quantity, 0)
   }
 
+  const parsePrice = (priceString: string): { ves: number; usd: number } => {
+    // Extraer precios en bolívares y dólares
+    // Ejemplos: "Bs. 40,11 ($0.25)", "Bs. 56,16", "$0.35"
+    
+    let vesPrice = 0;
+    let usdPrice = 0;
+
+    // Buscar precio en bolívares (puede usar , como decimal)
+    const vesMatch = priceString.match(/Bs\.\s*S?\s*([\d]+[,.]?\d*)/);
+    if (vesMatch) {
+      // Reemplazar coma por punto para el decimal
+      vesPrice = parseFloat(vesMatch[1].replace(',', '.')) || 0;
+    }
+
+    // Buscar precio en dólares en paréntesis
+    const usdMatch = priceString.match(/\(\$?([\d]+[,.]?\d*)\)/);
+    if (usdMatch) {
+      usdPrice = parseFloat(usdMatch[1].replace(',', '.')) || 0;
+    }
+
+    // Si no hay precio en bolívares pero hay en dólares, buscar solo números
+    if (vesPrice === 0 && usdPrice === 0) {
+      const numberMatch = priceString.match(/([\d]+[,.]?\d*)/);
+      if (numberMatch) {
+        const price = parseFloat(numberMatch[1].replace(',', '.')) || 0;
+        // Si es menor a 10, probablemente es USD, sino VES
+        if (price < 10) {
+          usdPrice = price;
+        } else {
+          vesPrice = price;
+        }
+      }
+    }
+
+    return { ves: vesPrice, usd: usdPrice };
+  }
+
+  const getSubtotal = (): CartTotals => {
+    return items.reduce((total, item) => {
+      const itemPrices = parsePrice(item.price);
+      return {
+        ves: total.ves + (itemPrices.ves * item.quantity),
+        usd: total.usd + (itemPrices.usd * item.quantity)
+      };
+    }, { ves: 0, usd: 0 });
+  }
+
+  const getTotal = (): CartTotals => {
+    // Por ahora el total es igual al subtotal
+    // Aquí se pueden agregar impuestos, envío, etc. en el futuro
+    return getSubtotal();
+  }
+
   const generateWhatsAppMessage = () => {
     if (items.length === 0) {
       return '¡Hola! Me interesa consultar sobre sus productos.'
     }
 
-    let message = '¡Hola! Me interesa consultar la disponibilidad de estos productos:\n\n'
+    let message = '¡Hola! Me interesa solicitar una cotización para los siguientes productos:\n\n'
     
     items.forEach((item, index) => {
       message += `${index + 1}. ${item.name}\n`
       message += `   • Cantidad: ${item.quantity}\n`
-      message += `   • Precio: ${item.price}\n\n`
+      message += `   • Precio estimado: ${item.price}\n\n`
     })
 
-    message += `Total de productos: ${getTotalItems()}\n\n`
-    message += '¿Están disponibles estos artículos y cuál sería el tiempo de entrega?'
+    const totals = getTotal();
+    message += `📊 RESUMEN:\n`
+    message += `• Total de productos: ${getTotalItems()}\n`
+    message += `• Total estimado: Bs. ${totals.ves.toFixed(2).replace('.', ',')}`
+    if (totals.usd > 0) {
+      message += ` ($${totals.usd.toFixed(2)})`
+    }
+    message += `\n\n`
+    message += '¿Podrían confirmar disponibilidad, precios exactos y tiempo de entrega?'
 
     return message
   }
@@ -114,6 +181,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     updateQuantity,
     clearCart,
     getTotalItems,
+    getSubtotal,
+    getTotal,
     generateWhatsAppMessage
   }
 

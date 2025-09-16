@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { 
   ArrowLeft, 
@@ -16,20 +16,24 @@ import {
   MessageCircle,
   Phone,
   ShoppingCart,
-  Plus
+  Plus,
+  RefreshCw,
+  DollarSign
 } from 'lucide-react'
 import Image from 'next/image'
 import { FaWhatsapp } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/contexts/CartContext'
 import FloatingCart from '@/components/cart/FloatingCart'
+import { useDynamicPricing } from '@/hooks/useDynamicPricing'
 
 interface Product {
   id: number
   name: string
   category: string
   description: string
-  price: string
+  baseUsdPrice: number // Precio base en USD
+  oldPrice?: string // Para mostrar precios anteriores si es necesario
   image: string
   isPopular: boolean
   preparationTime: string
@@ -40,6 +44,16 @@ function CatalogoProductosContent() {
   const router = useRouter()
   const [selectedCategory, setSelectedCategory] = useState('todos')
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const { 
+    isLoading: ratesLoading, 
+    error: ratesError, 
+    exchangeRate, 
+    lastUpdated, 
+    rateSource,
+    apiEndpoint,
+    getDisplayPrice, 
+    refreshRates 
+  } = useDynamicPricing()
 
   const categories = [
     { id: 'todos', name: 'Todos', icon: ChefHat },
@@ -56,7 +70,7 @@ function CatalogoProductosContent() {
       name: "Acema Andina",
       category: "tradicionales",
       description: "Pan tradicional venezolano, suave y esponjoso, perfecto para acompañar cualquier comida. Elaborado con técnicas artesanales y receta ancestral.",
-      price: "Bs. 8.50 (paquete)",
+      baseUsdPrice: 0.25, // $0.25 USD por paquete
       image: "/acema-andina-transparent.png",
       isPopular: true,
       preparationTime: "5 horas",
@@ -67,7 +81,7 @@ function CatalogoProductosContent() {
       name: "Pan de Hamburguesa",
       category: "gourmet",
       description: "Pan fresco y suave especialmente diseñado para hamburguesas. Con la textura perfecta para mantener todos los ingredientes en su lugar.",
-      price: "Bs. 12.00 (paquete de 6)",
+      baseUsdPrice: 0.35, // $0.35 USD por paquete de 6
       image: "/pan-hamburguesa.webp",
       isPopular: true,
       preparationTime: "4 horas",
@@ -78,7 +92,7 @@ function CatalogoProductosContent() {
       name: "Arepas de Yuca",
       category: "gourmet",
       description: "Deliciosas arepas elaboradas con yuca fresca, una alternativa única y sabrosa a las arepas tradicionales. Sin gluten y llenas de sabor.",
-      price: "Bs. 10.00 (paquete de 6)",
+      baseUsdPrice: 0.30, // $0.30 USD por paquete de 6
       image: "/arepa-yuca.webp",
       isPopular: true,
       preparationTime: "3 horas",
@@ -89,7 +103,7 @@ function CatalogoProductosContent() {
       name: "Bolos de Canela",
       category: "postres",
       description: "Deliciosos dulces tradicionales venezolanos con canela, perfectos para acompañar el café o como postre. Suaves, aromáticos y llenos de sabor casero.",
-      price: "Bs. 15.00 (bandeja)",
+      baseUsdPrice: 0.45, // $0.45 USD por bandeja
       image: "/bolos-canela-completo.png",
       isPopular: true,
       preparationTime: "4 horas",
@@ -98,44 +112,22 @@ function CatalogoProductosContent() {
     
     // === PRODUCTOS FUTUROS (Para referencia y desarrollo futuro) ===
     {
-      id: 5,
-      name: "Pan Canilla Tradicional",
-      category: "tradicionales",
-      description: "Nuestro clásico pan canilla, elaborado con receta tradicional venezolana desde 1950",
-      price: "Desde Bs. 2.50",
-      image: "🥖",
-      isPopular: false,
-      preparationTime: "4 horas",
-      ingredients: ["Harina de trigo", "Agua", "Sal", "Levadura", "Azúcar"]
-    },
-    {
       id: 6,
       name: "Pan de Jamón Navideño",
       category: "gourmet",
       description: "Especialidad navideña con jamón, aceitunas, pasas y papelón",
-      price: "Bs. 25.00 - 45.00",
+      baseUsdPrice: 0.75, // $0.75 USD pequeño - $1.25 USD grande
       image: "/pan de jamon.png",
       isPopular: false,
       preparationTime: "6 horas",
       ingredients: ["Masa brioche", "Jamón ahumado", "Aceitunas", "Pasas", "Papelón"]
     },
     {
-      id: 7,
-      name: "Croissant de Mantequilla",
-      category: "gourmet",
-      description: "Croissant francés con capas perfectas de mantequilla artesanal",
-      price: "Bs. 8.00",
-      image: "🥐",
-      isPopular: false,
-      preparationTime: "12 horas",
-      ingredients: ["Harina francesa", "Mantequilla europea", "Huevo", "Leche"]
-    },
-    {
       id: 8,
       name: "Torta Tres Leches",
       category: "postres",
       description: "Clásica torta tres leches con canela y crema batida",
-      price: "Bs. 35.00 (8 porciones)",
+      baseUsdPrice: 1.00, // $1.00 USD por 8 porciones
       image: "🍰",
       isPopular: false,
       preparationTime: "3 horas + refrigeración",
@@ -146,44 +138,66 @@ function CatalogoProductosContent() {
       name: "Quesillo Casero",
       category: "postres",
       description: "Tradicional quesillo venezolano con caramelo de papelón",
-      price: "Bs. 18.00",
+      baseUsdPrice: 0.50, // $0.50 USD por unidad
       image: "🍮",
       isPopular: false,
       preparationTime: "2 horas + refrigeración",
       ingredients: ["Huevos", "Leche condensada", "Leche líquida", "Papelón", "Vainilla"]
     },
     {
-      id: 10,
-      name: "Café Tostado Venezolano",
-      category: "bebidas",
-      description: "Café 100% venezolano, tostado artesanalmente",
-      price: "Bs. 15.00 (250g)",
-      image: "☕",
-      isPopular: false,
-      preparationTime: "Disponible",
-      ingredients: ["Granos de café venezolano", "Tostado medio"]
-    },
-    {
-      id: 11,
-      name: "Cachitos de Jamón",
-      category: "tradicionales",
-      description: "Tiernos cachitos rellenos de jamón ahumado",
-      price: "Bs. 4.50 c/u",
-      image: "🌭",
-      isPopular: false,
-      preparationTime: "3 horas",
-      ingredients: ["Masa de pan", "Jamón ahumado", "Queso blanco"]
-    },
-    {
       id: 12,
       name: "Golfeados Tradicionales",
       category: "tradicionales",
       description: "Dulces golfeados con papelón y queso blanco rallado",
-      price: "Bs. 6.00 c/u",
+      baseUsdPrice: 0.18, // $0.18 USD cada uno
       image: "🍯",
       isPopular: false,
       preparationTime: "4 horas",
       ingredients: ["Masa dulce", "Papelón", "Queso blanco", "Anís"]
+    },
+    {
+      id: 13,
+      name: "Roles de Ajoporro",
+      category: "gourmet",
+      description: "Deliciosos roles salados rellenos de ajoporro fresco, perfectos para cualquier ocasión",
+      baseUsdPrice: 0.15, // $0.15 USD cada uno
+      image: "🌿",
+      isPopular: false,
+      preparationTime: "3 horas",
+      ingredients: ["Masa de pan", "Ajoporro fresco", "Mantequilla", "Queso blanco", "Especias"]
+    },
+    {
+      id: 14,
+      name: "Empanadas de Yuca",
+      category: "tradicionales",
+      description: "Empanadas crujientes hechas con masa de yuca, rellenas de carne mechada o pollo",
+      baseUsdPrice: 0.12, // $0.12 USD cada una
+      image: "🥟",
+      isPopular: false,
+      preparationTime: "4 horas",
+      ingredients: ["Yuca rallada", "Carne mechada", "Pollo desmenuzado", "Cebolla", "Ají dulce"]
+    },
+    {
+      id: 15,
+      name: "Torta Beso de Ángel",
+      category: "postres",
+      description: "Exquisita torta de merengue con crema pastelera y durazno, suave como un beso celestial",
+      baseUsdPrice: 1.30, // $1.30 USD por 8 porciones
+      image: "😇",
+      isPopular: false,
+      preparationTime: "5 horas + refrigeración",
+      ingredients: ["Merengue", "Crema pastelera", "Duraznos en almíbar", "Crema chantilly", "Vainilla"]
+    },
+    {
+      id: 16,
+      name: "Torta Red Velvet",
+      category: "postres",
+      description: "Clásica torta red velvet con capas de bizcocho rojo aterciopelado y frosting de queso crema",
+      baseUsdPrice: 1.45, // $1.45 USD por 8 porciones
+      image: "❤️",
+      isPopular: false,
+      preparationTime: "4 horas + refrigeración",
+      ingredients: ["Harina", "Cacao", "Colorante rojo", "Queso crema", "Mantequilla", "Azúcar glass"]
     }
   ]
 
@@ -194,15 +208,17 @@ function CatalogoProductosContent() {
   const { addToCart } = useCart()
 
   const orderWhatsApp = (product: Product) => {
-    const message = `¡Hola! Me interesa ordenar: ${product.name} - ${product.price}`
+    const displayPrice = ratesLoading ? 'Precio pendiente' : getDisplayPrice(product.baseUsdPrice, true)
+    const message = `¡Hola! Me interesa ordenar: ${product.name} - ${displayPrice}`
     window.open(`https://wa.me/584129586725?text=${encodeURIComponent(message)}`, '_blank')
   }
 
   const handleAddToCart = (product: Product) => {
+    const displayPrice = ratesLoading ? 'Precio pendiente' : getDisplayPrice(product.baseUsdPrice, true)
     addToCart({
       id: product.id,
       name: product.name,
-      price: product.price,
+      price: displayPrice,
       image: product.image,
       category: product.category
     })
@@ -228,13 +244,41 @@ function CatalogoProductosContent() {
             <h1 className="text-lg sm:text-2xl font-bold text-wine-700 text-center flex-1 mx-4">Catálogo de Productos</h1>
             
             <div className="text-xs sm:text-sm text-gray-600 hidden sm:block">
-              Enero 2025
+              Septiembre 2025
             </div>
           </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
+        {/* Exchange Rate Info - Subtle Corner */}
+        <div className="mb-6 flex justify-end">
+          <div className="inline-flex items-center space-x-2 text-sm text-gray-600 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm border border-gray-200/50">
+            <DollarSign className="w-3.5 h-3.5" />
+            <span className="font-medium">
+              {ratesLoading ? 'Cargando...' : 
+                exchangeRate > 0 ? `${exchangeRate.toFixed(2)} Bs/$` : 'Error'}
+            </span>
+            {!ratesLoading && rateSource && (
+              <span className={`w-2 h-2 rounded-full ${
+                rateSource === 'API' ? 'bg-green-500' :
+                rateSource === 'CACHE' ? 'bg-blue-500' :
+                'bg-orange-500'
+              }`} title={rateSource === 'API' ? 'En vivo' : rateSource === 'CACHE' ? 'Cache' : 'Respaldo'}>
+              </span>
+            )}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={refreshRates}
+              disabled={ratesLoading}
+              className="text-gray-500 hover:text-gray-700 disabled:opacity-50 ml-1"
+            >
+              <RefreshCw className={`w-3 h-3 ${ratesLoading ? 'animate-spin' : ''}`} />
+            </motion.button>
+          </div>
+        </div>
+
         {/* Category Filter */}
         <div className="mb-8">
           <div className="flex flex-wrap gap-2 sm:gap-3 justify-center px-2">
@@ -300,8 +344,13 @@ function CatalogoProductosContent() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 gap-2">
-                  <div className="text-base sm:text-lg font-bold text-green-600">
-                    {product.price}
+                  <div className="space-y-1">
+                    <div className="text-base sm:text-lg font-bold text-green-600">
+                      {ratesLoading ? 'Calculando...' : getDisplayPrice(product.baseUsdPrice, false)}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      Base: ${product.baseUsdPrice.toFixed(2)} USD
+                    </div>
                   </div>
                   <div className="flex items-center space-x-1 text-xs text-gray-500">
                     <Clock className="w-3 h-3" />
@@ -415,8 +464,16 @@ function CatalogoProductosContent() {
                 {selectedProduct.name}
               </h2>
               <p className="text-gray-600 mb-4">{selectedProduct.description}</p>
-              <div className="text-xl font-bold text-green-600 mb-4">
-                {selectedProduct.price}
+              <div className="space-y-2 mb-4">
+                <div className="text-xl font-bold text-green-600">
+                  {ratesLoading ? 'Calculando...' : getDisplayPrice(selectedProduct.baseUsdPrice, false)}
+                </div>
+                <div className="text-sm text-gray-500">
+                  Precio base: ${selectedProduct.baseUsdPrice.toFixed(2)} USD
+                </div>
+                <div className="text-xs text-gray-400">
+                  Tasa BCV: {exchangeRate > 0 ? `${exchangeRate.toFixed(4)} Bs/$` : 'N/A'} • {lastUpdated ? new Date(lastUpdated).toLocaleDateString('es-VE') : 'Fecha no disponible'}
+                </div>
               </div>
             </div>
 

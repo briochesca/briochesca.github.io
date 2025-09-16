@@ -12,7 +12,7 @@ interface CartModalProps {
 }
 
 export default function CartModal({ isOpen, onClose }: CartModalProps) {
-  const { items, clearCart, getTotalItems, generateWhatsAppMessage } = useCart()
+  const { items, clearCart, getTotalItems, getSubtotal, getTotal, generateWhatsAppMessage } = useCart()
 
   const handleWhatsAppOrder = () => {
     const message = generateWhatsAppMessage()
@@ -105,17 +105,42 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
 
             {/* Footer Actions */}
             {items.length > 0 && (
-              <div className="p-4 sm:p-6 border-t border-gray-200 space-y-3">
-                <div className="bg-wine-50 rounded-lg p-4">
-                  <h3 className="font-semibold text-wine-700 mb-2">
-                    Resumen del pedido
-                  </h3>
-                  <p className="text-sm text-wine-600 mb-3">
-                    Total de productos: <span className="font-bold">{getTotalItems()}</span>
-                  </p>
-                  <p className="text-xs text-gray-600">
-                    Los precios y disponibilidad serán confirmados por WhatsApp
-                  </p>
+              <div className="p-4 sm:p-6 border-t border-gray-200 space-y-4">
+                {/* Totales */}
+                <div className="bg-gray-50 rounded-lg p-4 space-y-2">
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-gray-600">Subtotal ({getTotalItems()} productos):</span>
+                    <div className="text-right">
+                      <div className="font-medium">Bs. {getSubtotal().ves.toFixed(2).replace('.', ',')}</div>
+                      {getSubtotal().usd > 0 && (
+                        <div className="text-xs text-gray-500">${getSubtotal().usd.toFixed(2)}</div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="border-t border-gray-200 pt-2">
+                    <div className="flex justify-between items-center">
+                      <span className="font-semibold text-wine-700">Total Estimado:</span>
+                      <div className="text-right">
+                        <div className="font-bold text-lg text-wine-700">Bs. {getTotal().ves.toFixed(2).replace('.', ',')}</div>
+                        {getTotal().usd > 0 && (
+                          <div className="text-sm text-wine-600">${getTotal().usd.toFixed(2)}</div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Disclaimer */}
+                <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
+                  <div className="flex items-start space-x-2">
+                    <div className="w-4 h-4 rounded-full bg-orange-400 flex-shrink-0 mt-0.5 flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">!</span>
+                    </div>
+                    <div className="text-xs text-orange-800">
+                      <p className="font-semibold mb-1">Precios Estimados</p>
+                      <p>Los precios mostrados son estimados y pueden variar al momento de la cotización final. Confirmaremos disponibilidad y precios exactos por WhatsApp.</p>
+                    </div>
+                  </div>
                 </div>
 
                 <motion.button
@@ -125,11 +150,11 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
                   className="w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-xl font-semibold flex items-center justify-center space-x-3 text-base shadow-lg"
                 >
                   <FaWhatsapp className="w-5 h-5" />
-                  <span>Consultar Disponibilidad</span>
+                  <span>Solicitar Cotización</span>
                 </motion.button>
                 
                 <p className="text-xs text-center text-gray-500">
-                  Te enviaremos la lista por WhatsApp para confirmar disponibilidad
+                  Te contactaremos por WhatsApp para confirmar disponibilidad y precios finales
                 </p>
               </div>
             )}
