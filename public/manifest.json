@@ -3,6 +3,7 @@
   "short_name": "Brioches C.A.",
   "description": "Tradición y calidad en cada pan. Especializados en panes tradicionales, gourmet y repostería artesanal desde hace más de una década.",
   "start_url": "/",
+  "id": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#960647",
@@ -15,7 +16,13 @@
       "src": "/icon",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icon",
+      "sizes": "512x512", 
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/apple-icon",
