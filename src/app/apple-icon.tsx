@@ -25,7 +25,7 @@ export default function AppleIcon() {
           borderRadius: '20px',
         }}
       >
-        <svg width="140" height="140" viewBox="0 0 100 100">
+        <svg width="140" height="140" viewBox="0 0 100 100" style={{ marginTop: '8px' }}>
           {/* L izquierda - Vinotinto (magenta) externa */}
           <path d="M10 8 L52 8 L52 18 L20 18 L20 78 L10 78 Z" fill="#960647"/>
           

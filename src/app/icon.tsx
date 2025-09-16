@@ -24,7 +24,7 @@ export default function Icon() {
           justifyContent: 'center',
         }}
       >
-        <svg width="512" height="512" viewBox="0 0 100 100">
+        <svg width="400" height="400" viewBox="0 0 100 100" style={{ marginTop: '20px' }}>
           {/* L izquierda - Vinotinto (magenta) externa */}
           <path d="M10 8 L52 8 L52 18 L20 18 L20 78 L10 78 Z" fill="#960647"/>
           
