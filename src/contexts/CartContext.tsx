@@ -11,6 +11,13 @@ export interface CartItem {
   category: string
 }
 
+export interface CustomerData {
+  name: string
+  phone: string
+  address: string
+  email: string
+}
+
 interface CartTotals {
   ves: number
   usd: number
@@ -25,7 +32,7 @@ interface CartContextType {
   getTotalItems: () => number
   getSubtotal: () => CartTotals
   getTotal: () => CartTotals
-  generateWhatsAppMessage: () => string
+  generateWhatsAppMessage: (customerData?: CustomerData) => string
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
@@ -148,13 +155,27 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     return getSubtotal();
   }
 
-  const generateWhatsAppMessage = () => {
+  const generateWhatsAppMessage = (customerData?: CustomerData) => {
     if (items.length === 0) {
       return '¡Hola! Me interesa consultar sobre sus productos.'
     }
 
     let message = '¡Hola! Me interesa solicitar una cotización para los siguientes productos:\n\n'
     
+    // Datos del cliente
+    if (customerData) {
+      message += `👤 DATOS DEL CLIENTE:\n`
+      message += `• Nombre: ${customerData.name}\n`
+      message += `• Teléfono: ${customerData.phone}\n`
+      message += `• Dirección: ${customerData.address}\n`
+      if (customerData.email) {
+        message += `• Email: ${customerData.email}\n`
+      }
+      message += `\n`
+    }
+    
+    // Productos solicitados
+    message += `🛍️ PRODUCTOS SOLICITADOS:\n\n`
     items.forEach((item, index) => {
       message += `${index + 1}. ${item.name}\n`
       message += `   • Cantidad: ${item.quantity}\n`
@@ -162,14 +183,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     })
 
     const totals = getTotal();
-    message += `📊 RESUMEN:\n`
+    message += `📊 RESUMEN DEL PEDIDO:\n`
     message += `• Total de productos: ${getTotalItems()}\n`
     message += `• Total estimado: Bs. ${totals.ves.toFixed(2).replace('.', ',')}`
     if (totals.usd > 0) {
       message += ` ($${totals.usd.toFixed(2)})`
     }
     message += `\n\n`
-    message += '¿Podrían confirmar disponibilidad, precios exactos y tiempo de entrega?'
+    message += '¿Podrían confirmar disponibilidad, precios exactos y tiempo de entrega? ¡Gracias!'
 
     return message
   }
