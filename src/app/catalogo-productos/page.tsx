@@ -70,7 +70,7 @@ function CatalogoProductosContent() {
       name: "Acema Andina",
       category: "tradicionales",
       description: "Pan tradicional venezolano, suave y esponjoso, perfecto para acompañar cualquier comida. Elaborado con técnicas artesanales y receta ancestral.",
-      baseUsdPrice: 0.25, // $0.25 USD por paquete
+      baseUsdPrice: 2.00, // $2.00 USD por paquete de 5
       image: "/acema-andina-transparent.png",
       isPopular: true,
       preparationTime: "5 horas",
@@ -81,7 +81,7 @@ function CatalogoProductosContent() {
       name: "Pan de Hamburguesa",
       category: "gourmet",
       description: "Pan fresco y suave especialmente diseñado para hamburguesas. Con la textura perfecta para mantener todos los ingredientes en su lugar.",
-      baseUsdPrice: 0.35, // $0.35 USD por paquete de 6
+      baseUsdPrice: 2.00, // $2.00 USD por paquete
       image: "/pan-hamburguesa.webp",
       isPopular: true,
       preparationTime: "4 horas",
@@ -92,7 +92,7 @@ function CatalogoProductosContent() {
       name: "Arepas de Yuca",
       category: "gourmet",
       description: "Deliciosas arepas elaboradas con yuca fresca, una alternativa única y sabrosa a las arepas tradicionales. Sin gluten y llenas de sabor.",
-      baseUsdPrice: 0.30, // $0.30 USD por paquete de 6
+      baseUsdPrice: 7.50, // $7.50 USD por paquete
       image: "/arepa-yuca.webp",
       isPopular: true,
       preparationTime: "3 horas",
@@ -103,7 +103,7 @@ function CatalogoProductosContent() {
       name: "Bolos de Canela",
       category: "postres",
       description: "Deliciosos dulces tradicionales venezolanos con canela, perfectos para acompañar el café o como postre. Suaves, aromáticos y llenos de sabor casero.",
-      baseUsdPrice: 0.45, // $0.45 USD por bandeja
+      baseUsdPrice: 2.00, // $2.00 USD por 2 bolos
       image: "/bolos-canela-completo.png",
       isPopular: true,
       preparationTime: "4 horas",
@@ -116,7 +116,7 @@ function CatalogoProductosContent() {
       name: "Pan de Jamón Navideño",
       category: "gourmet",
       description: "Especialidad navideña con jamón, aceitunas, pasas y papelón",
-      baseUsdPrice: 0.75, // $0.75 USD pequeño - $1.25 USD grande
+      baseUsdPrice: 15.00, // $15.00 USD
       image: "/pan de jamon.png",
       isPopular: false,
       preparationTime: "6 horas",
@@ -127,8 +127,8 @@ function CatalogoProductosContent() {
       name: "Torta Tres Leches",
       category: "postres",
       description: "Clásica torta tres leches con canela y crema batida",
-      baseUsdPrice: 1.00, // $1.00 USD por 8 porciones
-      image: "🍰",
+      baseUsdPrice: 4.00, // $4.00 USD por porción
+      image: "/torta-tres-leches.png",
       isPopular: false,
       preparationTime: "3 horas + refrigeración",
       ingredients: ["Bizcocho esponja", "Leche condensada", "Leche evaporada", "Crema de leche"]
@@ -138,8 +138,8 @@ function CatalogoProductosContent() {
       name: "Quesillo Casero",
       category: "postres",
       description: "Tradicional quesillo venezolano con caramelo de papelón",
-      baseUsdPrice: 0.50, // $0.50 USD por unidad
-      image: "🍮",
+      baseUsdPrice: 3.50, // $3.50 USD por porción
+      image: "/quesillo.png",
       isPopular: false,
       preparationTime: "2 horas + refrigeración",
       ingredients: ["Huevos", "Leche condensada", "Leche líquida", "Papelón", "Vainilla"]
@@ -149,8 +149,8 @@ function CatalogoProductosContent() {
       name: "Golfeados Tradicionales",
       category: "tradicionales",
       description: "Dulces golfeados con papelón y queso blanco rallado",
-      baseUsdPrice: 0.18, // $0.18 USD cada uno
-      image: "🍯",
+      baseUsdPrice: 1.30, // $1.30 USD por 2 golfeados
+      image: "/golfeados.png",
       isPopular: false,
       preparationTime: "4 horas",
       ingredients: ["Masa dulce", "Papelón", "Queso blanco", "Anís"]
@@ -160,9 +160,9 @@ function CatalogoProductosContent() {
       name: "Roles de Ajoporro",
       category: "gourmet",
       description: "Deliciosos roles salados rellenos de ajoporro fresco, perfectos para cualquier ocasión",
-      baseUsdPrice: 0.15, // $0.15 USD cada uno
-      image: "🌿",
-      isPopular: false,
+      baseUsdPrice: 6.00, // $6.00 USD por 12 roles
+      image: "/roles-ajoporro.png",
+      isPopular: true,
       preparationTime: "3 horas",
       ingredients: ["Masa de pan", "Ajoporro fresco", "Mantequilla", "Queso blanco", "Especias"]
     },
@@ -171,9 +171,9 @@ function CatalogoProductosContent() {
       name: "Empanadas de Yuca",
       category: "tradicionales",
       description: "Empanadas crujientes hechas con masa de yuca, rellenas de carne mechada o pollo",
-      baseUsdPrice: 0.12, // $0.12 USD cada una
-      image: "🥟",
-      isPopular: false,
+      baseUsdPrice: 7.00, // $7.00 USD por 12 empanadas
+      image: "/empanadas-yuca.png",
+      isPopular: true,
       preparationTime: "4 horas",
       ingredients: ["Yuca rallada", "Carne mechada", "Pollo desmenuzado", "Cebolla", "Ají dulce"]
     },
@@ -182,8 +182,8 @@ function CatalogoProductosContent() {
       name: "Torta Beso de Ángel",
       category: "postres",
       description: "Exquisita torta de merengue con crema pastelera y durazno, suave como un beso celestial",
-      baseUsdPrice: 1.30, // $1.30 USD por 8 porciones
-      image: "😇",
+      baseUsdPrice: 4.00, // $4.00 USD por porción
+      image: "/torta-beso-angel.png",
       isPopular: false,
       preparationTime: "5 horas + refrigeración",
       ingredients: ["Merengue", "Crema pastelera", "Duraznos en almíbar", "Crema chantilly", "Vainilla"]
@@ -193,11 +193,88 @@ function CatalogoProductosContent() {
       name: "Torta Red Velvet",
       category: "postres",
       description: "Clásica torta red velvet con capas de bizcocho rojo aterciopelado y frosting de queso crema",
-      baseUsdPrice: 1.45, // $1.45 USD por 8 porciones
-      image: "❤️",
+      baseUsdPrice: 4.00, // $4.00 USD por porción
+      image: "/torta-red-velvet.png",
       isPopular: false,
       preparationTime: "4 horas + refrigeración",
       ingredients: ["Harina", "Cacao", "Colorante rojo", "Queso crema", "Mantequilla", "Azúcar glass"]
+    },
+    {
+      id: 17,
+      name: "Galletas de Ajonjolí",
+      category: "tradicionales",
+      description: "Deliciosas galletas artesanales con ajonjolí tostado, crujientes por fuera y suaves por dentro",
+      baseUsdPrice: 0.20, // $0.20 USD por paquete de 8
+      image: "/galletas-ajonjoli.png",
+      isPopular: false,
+      preparationTime: "2 horas",
+      ingredients: ["Harina de trigo", "Ajonjolí", "Mantequilla", "Azúcar", "Huevos", "Vainilla"]
+    },
+    {
+      id: 18,
+      name: "Pavlova de Melocotones",
+      category: "postres",
+      description: "Elegante postre de merengue crujiente con crema batida y melocotones frescos",
+      baseUsdPrice: 1.20, // $1.20 USD por 6 porciones
+      image: "/pavlova-melocotones.png",
+      isPopular: false,
+      preparationTime: "4 horas + refrigeración",
+      ingredients: ["Merengue", "Crema batida", "Melocotones frescos", "Azúcar glass", "Vainilla"]
+    },
+    {
+      id: 19,
+      name: "Torta de Piña",
+      category: "postres",
+      description: "Tropical torta con capas de bizcocho de piña y crema de mantequilla, refrescante y dulce",
+      baseUsdPrice: 1.10, // $1.10 USD por 8 porciones
+      image: "/torta-pina.png",
+      isPopular: false,
+      preparationTime: "4 horas",
+      ingredients: ["Bizcocho de piña", "Piña fresca", "Crema de mantequilla", "Azúcar", "Huevos"]
+    },
+    {
+      id: 20,
+      name: "Isla Flotante",
+      category: "postres",
+      description: "Clásico postre francés de merengue flotando sobre crema inglesa, delicado y elegante",
+      baseUsdPrice: 0.65, // $0.65 USD por porción individual
+      image: "/isla-flotante.png",
+      isPopular: false,
+      preparationTime: "3 horas + refrigeración",
+      ingredients: ["Merengue", "Crema inglesa", "Huevos", "Leche", "Azúcar", "Vainilla"]
+    },
+    {
+      id: 21,
+      name: "Scones de Queso",
+      category: "gourmet",
+      description: "Scones esponjosos y hojaldrados con queso, perfectos para el té de la tarde o desayuno",
+      baseUsdPrice: 0.25, // $0.25 USD cada uno
+      image: "/scones-queso.png",
+      isPopular: false,
+      preparationTime: "2 horas",
+      ingredients: ["Harina", "Queso cheddar", "Mantequilla", "Crema de leche", "Polvo de hornear"]
+    },
+    {
+      id: 22,
+      name: "Torta de Parchita",
+      category: "postres",
+      description: "Refrescante torta tropical con crema de parchita, ideal para el clima venezolano",
+      baseUsdPrice: 1.15, // $1.15 USD por 8 porciones
+      image: "/torta-parchita.png",
+      isPopular: true,
+      preparationTime: "4 horas + refrigeración",
+      ingredients: ["Bizcocho", "Parchita fresca", "Crema pastelera", "Merengue", "Gelatina sin sabor"]
+    },
+    {
+      id: 23,
+      name: "Suspiros",
+      category: "postres",
+      description: "Delicados merengues que se deshacen en la boca, ligeros como suspiros celestiales",
+      baseUsdPrice: 0.15, // $0.15 USD por paquete de 12
+      image: "/suspiros.png",
+      isPopular: false,
+      preparationTime: "3 horas",
+      ingredients: ["Clara de huevo", "Azúcar refinada", "Cremor tártaro", "Esencia de vainilla"]
     }
   ]
 
@@ -320,7 +397,16 @@ function CatalogoProductosContent() {
                     alt={product.name}
                     width={180}
                     height={160}
-                    className="object-contain max-h-36 w-auto"
+                    className={`object-contain w-auto h-auto ${
+                      // Productos específicos con imágenes más grandes
+                      product.id === 15 || // Torta Beso de Ángel
+                      product.id === 16 || // Torta Red Velvet
+                      product.id === 18 || // Pavlova de Melocotones
+                      product.id === 19 || // Torta de Piña
+                      product.id === 23    // Suspiros
+                        ? 'max-h-44 max-w-44'
+                        : 'max-h-36 max-w-36'
+                    }`}
                   />
                 ) : (
                   <div className="text-5xl sm:text-6xl">{product.image}</div>
@@ -454,7 +540,16 @@ function CatalogoProductosContent() {
                     alt={selectedProduct.name}
                     width={200}
                     height={200}
-                    className="object-contain max-h-48 w-auto"
+                    className={`object-contain w-auto h-auto mx-auto ${
+                      // Productos específicos con imágenes más grandes en modal
+                      selectedProduct.id === 15 || // Torta Beso de Ángel
+                      selectedProduct.id === 16 || // Torta Red Velvet
+                      selectedProduct.id === 18 || // Pavlova de Melocotones
+                      selectedProduct.id === 19 || // Torta de Piña
+                      selectedProduct.id === 23    // Suspiros
+                        ? 'max-h-48 max-w-48'
+                        : 'max-h-40 max-w-40'
+                    }`}
                   />
                 </div>
               ) : (
