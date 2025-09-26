@@ -57,33 +57,27 @@ export class CurrencyService {
   public async getBCVRates(): Promise<BCVRates> {
     // Verificar cache primero
     if (this.cache && this.isCacheValid()) {
-      console.log('📦 Usando tasas desde CACHE');
       const cachedRates = { ...this.cache.rates };
       cachedRates.USD.source = 'CACHE';
       return cachedRates;
     }
 
-    console.log('🌐 Obteniendo tasas del BCV...');
 
     for (const endpoint of this.BCV_API_ENDPOINTS) {
       try {
-        console.log(`🔄 Probando API: ${endpoint}`);
         const rates = await this.fetchFromEndpoint(endpoint);
         if (rates) {
           rates.USD.source = 'API';
           rates.USD.endpoint = endpoint;
-          console.log(`✅ ÉXITO - Tasa obtenida de API: ${rates.USD.rate} Bs/$ desde ${endpoint}`);
           this.updateCache(rates);
           return rates;
         }
       } catch (error) {
-        console.warn(`❌ Error en endpoint ${endpoint}:`, error);
         continue;
       }
     }
 
     // Si la API falla, usar valor de respaldo temporal
-    console.error('❌ TODAS LAS APIs FALLARON - Usando FALLBACK hardcodeado');
     return {
       USD: {
         rate: 160.45, // Valor de respaldo temporal basado en última tasa conocida
@@ -99,7 +93,6 @@ export class CurrencyService {
    */
   private async fetchFromEndpoint(endpoint: string): Promise<BCVRates | null> {
     try {
-      console.log(`🌐 Haciendo fetch a: ${endpoint}`);
       
       const response = await fetch(endpoint, {
         method: 'GET',
@@ -112,34 +105,26 @@ export class CurrencyService {
         signal: AbortSignal.timeout(15000)
       });
 
-      console.log(`📡 Respuesta HTTP ${response.status} de: ${endpoint}`);
 
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
       const data = await response.json();
-      console.log(`📝 Datos recibidos de ${endpoint}:`, data);
       
       const normalized = this.normalizeAPIResponse(data, endpoint);
       if (normalized) {
-        console.log(`✅ Normalización exitosa:`, normalized);
       } else {
-        console.log(`❌ Normalización falló para ${endpoint}`);
       }
       
       return normalized;
     } catch (error) {
       if (error instanceof Error) {
         if (error.name === 'AbortError') {
-          console.error(`⏰ Timeout en ${endpoint} (15 segundos)`);
         } else if (error.message.includes('CORS')) {
-          console.error(`🚫 Error CORS en ${endpoint}:`, error);
         } else {
-          console.error(`💥 Error en ${endpoint}:`, error);
         }
       } else {
-        console.error(`💥 Error desconocido en ${endpoint}:`, error);
       }
       return null;
     }
@@ -150,7 +135,6 @@ export class CurrencyService {
    */
   private normalizeAPIResponse(data: any, endpoint: string): BCVRates | null {
     try {
-      console.log(`🔍 Normalizando respuesta de ${endpoint}:`, data);
 
       // Para bcv-api.rafnixg.dev - API oficial documentada
       if (endpoint.includes('rafnixg.dev')) {
@@ -208,7 +192,6 @@ export class CurrencyService {
           
           // Filtrar solo tasas realistas (mayor a 100, menor a 300)
           if (rate >= 100 && rate <= 300) {
-            console.log(`✅ Tasa válida encontrada desde API: ${rate} Bs/$`);
             return {
               USD: {
                 rate: rate,
@@ -218,7 +201,6 @@ export class CurrencyService {
               }
             };
           } else {
-            console.warn(`⚠️ Tasa fuera de rango: ${rate} Bs/$ (esperado: 100-300)`);
             return null;
           }
         }
@@ -231,7 +213,6 @@ export class CurrencyService {
           const rate = parseFloat(data.rates.VES) || 0;
           
           if (rate >= 100 && rate <= 300) {
-            console.log(`✅ Tasa FXRates válida: ${rate} Bs/$`);
             return {
               USD: {
                 rate: rate,
@@ -241,7 +222,6 @@ export class CurrencyService {
               }
             };
           } else {
-            console.warn(`⚠️ Tasa FXRates fuera de rango: ${rate} Bs/$`);
             return null;
           }
         }
@@ -260,7 +240,6 @@ export class CurrencyService {
         
         // Filtrar solo tasas realistas
         if (rate >= 100 && rate <= 300) {
-          console.log(`✅ Tasa GitHub válida: ${rate} Bs/$`);
           return {
             USD: {
               rate: rate,
@@ -270,7 +249,6 @@ export class CurrencyService {
             }
           };
         } else if (rate > 0) {
-          console.warn(`⚠️ Tasa GitHub fuera de rango: ${rate} Bs/$`);
           return null;
         }
       }
@@ -319,10 +297,8 @@ export class CurrencyService {
         }
       }
 
-      console.warn(`⚠️ Formato no reconocido para ${endpoint}:`, data);
       return null;
     } catch (error) {
-      console.error('Error normalizing API response:', error);
       return null;
     }
   }
@@ -336,7 +312,6 @@ export class CurrencyService {
       const vesAmount = usdAmount * rates.USD.rate;
       return Math.round(vesAmount * 100) / 100; // Redondear a 2 decimales
     } catch (error) {
-      console.error('Error converting USD to VES:', error);
       // Usar tasa de respaldo en lugar de lanzar error
       return usdAmount * 160.45;
     }
@@ -393,7 +368,6 @@ export class CurrencyService {
     try {
       localStorage.setItem('bcv_rates_cache', JSON.stringify(this.cache));
     } catch (error) {
-      console.warn('No se pudo guardar cache en localStorage:', error);
     }
   }
 
@@ -410,7 +384,6 @@ export class CurrencyService {
         }
       }
     } catch (error) {
-      console.warn('No se pudo cargar cache desde localStorage:', error);
     }
   }
 
@@ -464,7 +437,6 @@ export class CurrencyService {
     try {
       localStorage.removeItem('bcv_rates_cache');
     } catch (error) {
-      console.warn('No se pudo limpiar cache:', error);
     }
   }
 
@@ -499,7 +471,6 @@ export class CurrencyService {
 
       return null;
     } catch (error) {
-      console.warn('Error formatting date:', dateStr, error);
       return null;
     }
   }
@@ -511,10 +482,8 @@ export class CurrencyService {
     // Actualizar cada 2 horas durante el día
     setInterval(async () => {
       try {
-        console.log('🔄 Auto-actualización de tasas BCV...');
         await this.getBCVRates();
       } catch (error) {
-        console.error('Error en auto-actualización:', error);
       }
     }, this.CACHE_DURATION);
 
@@ -523,7 +492,6 @@ export class CurrencyService {
       window.addEventListener('focus', async () => {
         const today = new Date().toDateString();
         if (this.lastFetchDate !== today) {
-          console.log('🌅 Nuevo día detectado, actualizando tasas...');
           this.clearCache();
           await this.getBCVRates();
           this.lastFetchDate = today;

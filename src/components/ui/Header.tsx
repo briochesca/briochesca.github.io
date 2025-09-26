@@ -1,21 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-// Componente del Logo Brioches - Dos L casi tocándose
 const BriochesLogo = ({ className = "w-10 h-10" }) => (
   <div className={`${className} flex-shrink-0`}>
     <svg viewBox="0 0 100 100" className="w-full h-full">
-      {/* L izquierda - Vinotinto (magenta) externa */}
       <path d="M10 8 L52 8 L52 18 L20 18 L20 78 L10 78 Z" fill="#960647"/>
       
-      {/* L izquierda - Verde interna */}
       <path d="M20 18 L47 18 L47 28 L30 28 L30 68 L20 68 Z" fill="#639100"/>
       
-      {/* L derecha - Naranja externa (casi tocando) */}
       <path d="M90 8 L90 78 L48 78 L48 68 L80 68 L80 8 Z" fill="#D97503"/>
       
-      {/* L derecha - Azul interna (casi tocando) */}
       <path d="M80 18 L80 68 L53 68 L53 58 L70 58 L70 18 Z" fill="#0263A8"/>
     </svg>
   </div>
@@ -24,6 +20,12 @@ const BriochesLogo = ({ className = "w-10 h-10" }) => (
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,7 +55,7 @@ export default function Header() {
 
   return (
     <>
-      <header 
+      <header
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
           isScrolled 
             ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100" 
@@ -105,11 +107,11 @@ export default function Header() {
 
             {/* CTA Button */}
             <div className="hidden lg:block">
-              <button 
-                onClick={() => scrollToSection("contacto")}
+              <button
+                onClick={() => isHydrated && router.push('/catalogo-productos')}
                 className="bg-gradient-wine text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:shadow-lg hover:scale-105 transition-all duration-300 hover:shadow-wine-500/25"
               >
-                Contáctanos
+                {isHydrated ? 'Ver Catálogo' : 'Contáctanos'}
               </button>
             </div>
 
@@ -152,11 +154,16 @@ export default function Header() {
                   {item.label}
                 </button>
               ))}
-              <button 
-                onClick={() => scrollToSection("contacto")}
+              <button
+                onClick={() => {
+                  if (isHydrated) {
+                    router.push('/catalogo-productos');
+                    setIsMobileMenuOpen(false);
+                  }
+                }}
                 className="w-full mt-6 bg-gradient-wine text-white py-3 px-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300"
               >
-                Contáctanos
+                {isHydrated ? 'Ver Catálogo' : 'Contáctanos'}
               </button>
             </div>
           </div>

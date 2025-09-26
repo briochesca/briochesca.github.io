@@ -42,7 +42,6 @@ export const useDynamicPricing = () => {
         currencyService.startAutoUpdate();
         
         // Obtener tasas actualizadas del día
-        console.log('🚀 Obteniendo tasa exacta del BCV para hoy...');
         const rates = await currencyService.getBCVRates();
         setExchangeRate(rates.USD.rate);
         setLastUpdated(rates.USD.date);
@@ -50,13 +49,7 @@ export const useDynamicPricing = () => {
         setApiEndpoint(rates.USD.endpoint || '');
         setError(null);
         
-        console.log(`✅ Tasa BCV cargada: ${rates.USD.rate} Bs/$`, {
-          source: rates.USD.source,
-          endpoint: rates.USD.endpoint,
-          date: rates.USD.date
-        });
       } catch (err) {
-        console.error('Error initializing currency service:', err);
         setError('Usando tasa de respaldo temporal');
         // Establecer tasa de respaldo funcional
         setExchangeRate(160.45);
@@ -87,7 +80,6 @@ export const useDynamicPricing = () => {
         error: null
       };
     } catch (err) {
-      console.error('Error converting price:', err);
       
       // Fallback usando última tasa conocida
       return {
@@ -169,7 +161,6 @@ export const useDynamicPricing = () => {
       setExchangeRate(rates.USD.rate);
       setLastUpdated(rates.USD.date);
     } catch (err) {
-      console.error('Error refreshing rates:', err);
       setError('Error al actualizar tasas');
     } finally {
       setIsLoading(false);
@@ -204,7 +195,6 @@ export const useDynamicPricing = () => {
   };
 
   return {
-    // Estado general
     isLoading,
     error,
     exchangeRate,
@@ -212,14 +202,12 @@ export const useDynamicPricing = () => {
     rateSource,
     apiEndpoint,
     
-    // Funciones
     convertPrice,
     processProductsPricing,
     formatPrice,
     getDisplayPrice,
     refreshRates,
     
-    // Hook para productos individuales
     useProductPricing
   };
 };

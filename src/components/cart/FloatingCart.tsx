@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ShoppingBag } from 'lucide-react'
 import { useCart } from '@/contexts/CartContext'
@@ -8,11 +8,22 @@ import CartModal from './CartModal'
 
 export default function FloatingCart() {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { getTotalItems } = useCart()
+  const [mounted, setMounted] = useState(false)
 
+  const { getTotalItems } = useCart()
   const totalItems = getTotalItems()
 
-  if (totalItems === 0) return null
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
+
+  if (totalItems === 0) {
+    return null
+  }
 
   return (
     <>
@@ -42,9 +53,9 @@ export default function FloatingCart() {
         </div>
       </motion.button>
 
-      <CartModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      <CartModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
     </>
   )

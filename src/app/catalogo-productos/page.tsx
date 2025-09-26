@@ -32,8 +32,9 @@ interface Product {
   name: string
   category: string
   description: string
-  baseUsdPrice: number // Precio base en USD
-  oldPrice?: string // Para mostrar precios anteriores si es necesario
+  baseUsdPrice: number
+  quantity: string
+  oldPrice?: string
   image: string
   isPopular: boolean
   preparationTime: string
@@ -64,13 +65,12 @@ function CatalogoProductosContent() {
   ]
 
   const products: Product[] = [
-    // === PRODUCTOS DISPONIBLES CON IMÁGENES REALES ===
     {
       id: 1,
       name: "Acema Andina",
       category: "tradicionales",
       description: "Pan tradicional venezolano, suave y esponjoso, perfecto para acompañar cualquier comida. Elaborado con técnicas artesanales y receta ancestral.",
-      baseUsdPrice: 2.00, // $2.00 USD por paquete de 5
+      baseUsdPrice: 2.00,      quantity: "Paquete de 5 unidades",
       image: "/acema-andina-transparent.png",
       isPopular: true,
       preparationTime: "5 horas",
@@ -81,7 +81,7 @@ function CatalogoProductosContent() {
       name: "Pan de Hamburguesa",
       category: "gourmet",
       description: "Pan fresco y suave especialmente diseñado para hamburguesas. Con la textura perfecta para mantener todos los ingredientes en su lugar.",
-      baseUsdPrice: 2.00, // $2.00 USD por paquete
+      baseUsdPrice: 2.00,      quantity: "Paquete de 4 unidades",
       image: "/pan-hamburguesa.webp",
       isPopular: true,
       preparationTime: "4 horas",
@@ -92,7 +92,7 @@ function CatalogoProductosContent() {
       name: "Arepas de Yuca",
       category: "gourmet",
       description: "Deliciosas arepas elaboradas con yuca fresca, una alternativa única y sabrosa a las arepas tradicionales. Sin gluten y llenas de sabor.",
-      baseUsdPrice: 7.50, // $7.50 USD por paquete
+      baseUsdPrice: 7.50,      quantity: "Paquete de 12 unidades",
       image: "/arepa-yuca.webp",
       isPopular: true,
       preparationTime: "3 horas",
@@ -103,20 +103,18 @@ function CatalogoProductosContent() {
       name: "Bolos de Canela",
       category: "postres",
       description: "Deliciosos dulces tradicionales venezolanos con canela, perfectos para acompañar el café o como postre. Suaves, aromáticos y llenos de sabor casero.",
-      baseUsdPrice: 2.00, // $2.00 USD por 2 bolos
+      baseUsdPrice: 2.00,      quantity: "2 unidades",
       image: "/bolos-canela-completo.png",
       isPopular: true,
       preparationTime: "4 horas",
       ingredients: ["Harina de trigo", "Azúcar", "Mantequilla", "Huevos", "Canela", "Vainilla"]
     },
-    
-    // === PRODUCTOS FUTUROS (Para referencia y desarrollo futuro) ===
     {
       id: 6,
       name: "Pan de Jamón Navideño",
       category: "gourmet",
       description: "Especialidad navideña con jamón, aceitunas, pasas y papelón",
-      baseUsdPrice: 15.00, // $15.00 USD
+      baseUsdPrice: 15.00,      quantity: "1 unidad completa",
       image: "/pan de jamon.png",
       isPopular: false,
       preparationTime: "6 horas",
@@ -127,7 +125,7 @@ function CatalogoProductosContent() {
       name: "Torta Tres Leches",
       category: "postres",
       description: "Clásica torta tres leches con canela y crema batida",
-      baseUsdPrice: 4.00, // $4.00 USD por porción
+      baseUsdPrice: 4.00,      quantity: "Porción individual",
       image: "/torta-tres-leches.png",
       isPopular: false,
       preparationTime: "3 horas + refrigeración",
@@ -138,7 +136,7 @@ function CatalogoProductosContent() {
       name: "Quesillo Casero",
       category: "postres",
       description: "Tradicional quesillo venezolano con caramelo de papelón",
-      baseUsdPrice: 3.50, // $3.50 USD por porción
+      baseUsdPrice: 3.50,      quantity: "Porción individual",
       image: "/quesillo.png",
       isPopular: false,
       preparationTime: "2 horas + refrigeración",
@@ -149,7 +147,7 @@ function CatalogoProductosContent() {
       name: "Golfeados Tradicionales",
       category: "tradicionales",
       description: "Dulces golfeados con papelón y queso blanco rallado",
-      baseUsdPrice: 1.30, // $1.30 USD por 2 golfeados
+      baseUsdPrice: 1.30,      quantity: "2 unidades",
       image: "/golfeados.png",
       isPopular: false,
       preparationTime: "4 horas",
@@ -160,7 +158,7 @@ function CatalogoProductosContent() {
       name: "Roles de Ajoporro",
       category: "gourmet",
       description: "Deliciosos roles salados rellenos de ajoporro fresco, perfectos para cualquier ocasión",
-      baseUsdPrice: 6.00, // $6.00 USD por 12 roles
+      baseUsdPrice: 6.00,      quantity: "Paquete de 12 unidades",
       image: "/roles-ajoporro.png",
       isPopular: true,
       preparationTime: "3 horas",
@@ -171,7 +169,7 @@ function CatalogoProductosContent() {
       name: "Empanadas de Yuca",
       category: "tradicionales",
       description: "Empanadas crujientes hechas con masa de yuca, rellenas de carne mechada o pollo",
-      baseUsdPrice: 7.00, // $7.00 USD por 12 empanadas
+      baseUsdPrice: 7.00,      quantity: "Paquete de 12 unidades",
       image: "/empanadas-yuca.png",
       isPopular: true,
       preparationTime: "4 horas",
@@ -182,7 +180,7 @@ function CatalogoProductosContent() {
       name: "Torta Beso de Ángel",
       category: "postres",
       description: "Exquisita torta de merengue con crema pastelera y durazno, suave como un beso celestial",
-      baseUsdPrice: 4.00, // $4.00 USD por porción
+      baseUsdPrice: 4.00,      quantity: "Porción individual",
       image: "/torta-beso-angel.png",
       isPopular: false,
       preparationTime: "5 horas + refrigeración",
@@ -193,7 +191,7 @@ function CatalogoProductosContent() {
       name: "Torta Red Velvet",
       category: "postres",
       description: "Clásica torta red velvet con capas de bizcocho rojo aterciopelado y frosting de queso crema",
-      baseUsdPrice: 4.00, // $4.00 USD por porción
+      baseUsdPrice: 4.00,      quantity: "Porción individual",
       image: "/torta-red-velvet.png",
       isPopular: false,
       preparationTime: "4 horas + refrigeración",
@@ -204,7 +202,7 @@ function CatalogoProductosContent() {
       name: "Galletas de Ajonjolí",
       category: "tradicionales",
       description: "Deliciosas galletas artesanales con ajonjolí tostado, crujientes por fuera y suaves por dentro",
-      baseUsdPrice: 0.20, // $0.20 USD por paquete de 8
+      baseUsdPrice: 0.20,      quantity: "Paquete de 4 unidades",
       image: "/galletas-ajonjoli.png",
       isPopular: false,
       preparationTime: "2 horas",
@@ -215,7 +213,7 @@ function CatalogoProductosContent() {
       name: "Pavlova de Melocotones",
       category: "postres",
       description: "Elegante postre de merengue crujiente con crema batida y melocotones frescos",
-      baseUsdPrice: 1.20, // $1.20 USD por 6 porciones
+      baseUsdPrice: 1.20,      quantity: "Porción individual",
       image: "/pavlova-melocotones.png",
       isPopular: false,
       preparationTime: "4 horas + refrigeración",
@@ -226,7 +224,7 @@ function CatalogoProductosContent() {
       name: "Torta de Piña",
       category: "postres",
       description: "Tropical torta con capas de bizcocho de piña y crema de mantequilla, refrescante y dulce",
-      baseUsdPrice: 1.10, // $1.10 USD por 8 porciones
+      baseUsdPrice: 1.10,      quantity: "Porción individual",
       image: "/torta-pina.png",
       isPopular: false,
       preparationTime: "4 horas",
@@ -236,8 +234,8 @@ function CatalogoProductosContent() {
       id: 20,
       name: "Isla Flotante",
       category: "postres",
-      description: "Clásico postre francés de merengue flotando sobre crema inglesa, delicado y elegante",
-      baseUsdPrice: 0.65, // $0.65 USD por porción individual
+      description: "Clásico postre francés de merengue flotando sobre crema inglesa, delicado y elegante. Una experiencia única que se deshace suavemente en la boca.",
+      baseUsdPrice: 0.65,      quantity: "Porción individual",
       image: "/isla-flotante.png",
       isPopular: false,
       preparationTime: "3 horas + refrigeración",
@@ -247,8 +245,8 @@ function CatalogoProductosContent() {
       id: 21,
       name: "Scones de Queso",
       category: "gourmet",
-      description: "Scones esponjosos y hojaldrados con queso, perfectos para el té de la tarde o desayuno",
-      baseUsdPrice: 0.25, // $0.25 USD cada uno
+      description: "Scones esponjosos y hojaldrados con queso, perfectos para el té de la tarde o desayuno. Textura irresistible con el equilibrio perfecto entre mantequilla y queso.",
+      baseUsdPrice: 0.25,      quantity: "1 unidad",
       image: "/scones-queso.png",
       isPopular: false,
       preparationTime: "2 horas",
@@ -259,9 +257,9 @@ function CatalogoProductosContent() {
       name: "Torta de Parchita",
       category: "postres",
       description: "Refrescante torta tropical con crema de parchita, ideal para el clima venezolano",
-      baseUsdPrice: 1.15, // $1.15 USD por 8 porciones
+      baseUsdPrice: 1.15,      quantity: "Porción individual",
       image: "/torta-parchita.png",
-      isPopular: true,
+      isPopular: false,
       preparationTime: "4 horas + refrigeración",
       ingredients: ["Bizcocho", "Parchita fresca", "Crema pastelera", "Merengue", "Gelatina sin sabor"]
     },
@@ -270,7 +268,7 @@ function CatalogoProductosContent() {
       name: "Suspiros",
       category: "postres",
       description: "Delicados merengues que se deshacen en la boca, ligeros como suspiros celestiales",
-      baseUsdPrice: 0.15, // $0.15 USD por paquete de 12
+      baseUsdPrice: 1.50,      quantity: "Paquete de 12 unidades",
       image: "/suspiros.png",
       isPopular: false,
       preparationTime: "3 horas",
@@ -380,14 +378,14 @@ function CatalogoProductosContent() {
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 items-stretch">
           {filteredProducts.map((product, index) => (
             <motion.div
               key={product.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
+              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col h-full"
             >
               {/* Product Image */}
               <div className="relative bg-gradient-to-br from-orange-100 via-yellow-50 to-orange-100 h-40 sm:h-48 flex items-center justify-center p-4">
@@ -397,16 +395,7 @@ function CatalogoProductosContent() {
                     alt={product.name}
                     width={180}
                     height={160}
-                    className={`object-contain w-auto h-auto ${
-                      // Productos específicos con imágenes más grandes
-                      product.id === 15 || // Torta Beso de Ángel
-                      product.id === 16 || // Torta Red Velvet
-                      product.id === 18 || // Pavlova de Melocotones
-                      product.id === 19 || // Torta de Piña
-                      product.id === 23    // Suspiros
-                        ? 'max-h-44 max-w-44'
-                        : 'max-h-36 max-w-36'
-                    }`}
+                    className="object-contain w-auto h-auto max-h-44 max-w-50"
                   />
                 ) : (
                   <div className="text-5xl sm:text-6xl">{product.image}</div>
@@ -420,16 +409,16 @@ function CatalogoProductosContent() {
               </div>
 
               {/* Product Info */}
-              <div className="p-4 sm:p-6">
+              <div className="p-4 sm:p-6 flex flex-col h-full">
                 <h3 className="text-lg sm:text-xl font-bold text-wine-700 mb-2 group-hover:text-wine-800 transition-colors">
                   {product.name}
                 </h3>
-                
-                <p className="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-2">
+
+                <p className="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-2 flex-grow">
                   {product.description}
                 </p>
 
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4 gap-2">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4">
                   <div className="space-y-1">
                     <div className="text-base sm:text-lg font-bold text-green-600">
                       {ratesLoading ? 'Calculando...' : getDisplayPrice(product.baseUsdPrice, false)}
@@ -437,15 +426,36 @@ function CatalogoProductosContent() {
                     <div className="text-xs text-gray-500">
                       Base: ${product.baseUsdPrice.toFixed(2)} USD
                     </div>
+                    <div className="text-xs text-wine-600 font-medium">
+                      {product.quantity}
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-1 text-xs text-gray-500">
-                    <Clock className="w-3 h-3" />
-                    <span className="text-xs">{product.preparationTime}</span>
+                  <div className="flex items-center justify-end text-xs text-gray-500 min-h-[2.5rem] sm:min-h-[1.5rem] sm:text-right">
+                    {product.preparationTime.includes('refrigeración') ? (
+                      <div className="flex flex-col items-end">
+                        <div className="flex items-center space-x-1">
+                          <Clock className="w-3 h-3 flex-shrink-0" />
+                          <span className="text-xs leading-tight">
+                            {product.preparationTime.split(' + ')[0]}
+                          </span>
+                        </div>
+                        <span className="text-xs leading-tight text-blue-500">
+                          + refrigeración
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center space-x-1">
+                        <Clock className="w-3 h-3 flex-shrink-0" />
+                        <span className="text-xs leading-tight">
+                          {product.preparationTime}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="space-y-2">
+                <div className="space-y-2 mt-auto">
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
@@ -456,7 +466,7 @@ function CatalogoProductosContent() {
                     <span className="hidden sm:inline">Agregar al Carrito</span>
                     <span className="sm:hidden">Agregar</span>
                   </motion.button>
-                  
+
                   <div className="grid grid-cols-2 gap-2">
                     <motion.button
                       whileHover={{ scale: 1.02 }}
@@ -468,7 +478,7 @@ function CatalogoProductosContent() {
                       <span className="hidden sm:inline">Directo</span>
                       <span className="sm:hidden">Directo</span>
                     </motion.button>
-                    
+
                     <motion.button
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
@@ -540,16 +550,7 @@ function CatalogoProductosContent() {
                     alt={selectedProduct.name}
                     width={200}
                     height={200}
-                    className={`object-contain w-auto h-auto mx-auto ${
-                      // Productos específicos con imágenes más grandes en modal
-                      selectedProduct.id === 15 || // Torta Beso de Ángel
-                      selectedProduct.id === 16 || // Torta Red Velvet
-                      selectedProduct.id === 18 || // Pavlova de Melocotones
-                      selectedProduct.id === 19 || // Torta de Piña
-                      selectedProduct.id === 23    // Suspiros
-                        ? 'max-h-48 max-w-48'
-                        : 'max-h-40 max-w-40'
-                    }`}
+                    className="object-contain w-auto h-auto mx-auto max-h-48 max-w-48"
                   />
                 </div>
               ) : (
@@ -566,6 +567,9 @@ function CatalogoProductosContent() {
                 <div className="text-sm text-gray-500">
                   Precio base: ${selectedProduct.baseUsdPrice.toFixed(2)} USD
                 </div>
+                <div className="text-sm text-wine-600 font-medium">
+                  {selectedProduct.quantity}
+                </div>
                 <div className="text-xs text-gray-400">
                   Tasa BCV: {exchangeRate > 0 ? `${exchangeRate.toFixed(4)} Bs/$` : 'N/A'} • {lastUpdated ? new Date(lastUpdated).toLocaleDateString('es-VE') : 'Fecha no disponible'}
                 </div>
@@ -578,7 +582,16 @@ function CatalogoProductosContent() {
                   <Clock className="w-4 h-4 mr-2" />
                   Tiempo de preparación
                 </h3>
-                <p className="text-gray-600">{selectedProduct.preparationTime}</p>
+                <div className="text-gray-600">
+                  {selectedProduct.preparationTime.includes('refrigeración') ? (
+                    <div className="flex items-center space-x-2">
+                      <span>{selectedProduct.preparationTime.split(' + ')[0]}</span>
+                      <span className="text-blue-500 font-medium">+ refrigeración</span>
+                    </div>
+                  ) : (
+                    <div>{selectedProduct.preparationTime}</div>
+                  )}
+                </div>
               </div>
 
               <div>

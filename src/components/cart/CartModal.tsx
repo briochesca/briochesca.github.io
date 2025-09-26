@@ -31,7 +31,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
     setIsProcessing(true)
     setCustomerData(data)
     
-    // Simular un pequeño delay para UX
+    // pequeño delay para UX
     setTimeout(() => {
       handleWhatsAppOrder(data)
       setIsProcessing(false)

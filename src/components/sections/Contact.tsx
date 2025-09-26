@@ -64,7 +64,6 @@ export default function Contact() {
     } catch (error) {
       setSubmitStatus('error');
       setMessage('Error al enviar el mensaje. Por favor intenta de nuevo.');
-      console.error('EmailJS error:', error);
     } finally {
       setIsSubmitting(false);
     }

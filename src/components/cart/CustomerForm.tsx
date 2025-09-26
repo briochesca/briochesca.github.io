@@ -29,7 +29,6 @@ export default function CustomerForm({ onSubmit, onBack, isLoading = false }: Cu
         const parsedData = JSON.parse(savedCustomerData) as CustomerData
         setFormData(parsedData)
       } catch (error) {
-        console.error('Error loading customer data from localStorage:', error)
       }
     }
   }, [])

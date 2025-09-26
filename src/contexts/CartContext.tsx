@@ -44,11 +44,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   // Load cart from localStorage on mount
   useEffect(() => {
     const savedCart = localStorage.getItem('brioches-cart')
+
     if (savedCart) {
       try {
-        setItems(JSON.parse(savedCart))
+        const parsedItems = JSON.parse(savedCart)
+        setItems(parsedItems)
       } catch (error) {
-        console.error('Error loading cart from localStorage:', error)
+        // Silent error handling
       }
     }
     setIsLoaded(true)
@@ -103,8 +105,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const parsePrice = (priceString: string): { ves: number; usd: number } => {
-    // Extraer precios en bolívares y dólares
-    // Ejemplos: "Bs. 40,11 ($0.25)", "Bs. 56,16", "$0.35"
     
     let vesPrice = 0;
     let usdPrice = 0;
@@ -162,7 +162,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     let message = '¡Hola! Me interesa solicitar una cotización para los siguientes productos:\n\n'
     
-    // Datos del cliente
     if (customerData) {
       message += `👤 DATOS DEL CLIENTE:\n`
       message += `• Nombre: ${customerData.name}\n`
@@ -174,7 +173,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       message += `\n`
     }
     
-    // Productos solicitados
     message += `🛍️ PRODUCTOS SOLICITADOS:\n\n`
     items.forEach((item, index) => {
       message += `${index + 1}. ${item.name}\n`
