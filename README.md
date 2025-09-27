@@ -68,8 +68,8 @@ Landing page profesional y plataforma de e-commerce desarrollada para **Brioches
 ### Setup Local
 ```bash
 # Clonar repositorio
-git clone https://github.com/alfargenis/LandingBriochesca.git
-cd LandingBriochesca
+git clone https://github.com/briochesca/briochesca.github.io.git
+cd briochesca.github.io
 
 # Instalar dependencias
 npm install
@@ -92,7 +92,7 @@ npm run verify   # Verificación completa del build
 ## 🌐 Deploy en Producción
 
 ### URL Oficial
-🔗 **https://alfargenis.github.io/LandingBriochesca/**
+🔗 **https://briochesca.github.io/**
 
 ### Configuración GitHub Pages
 
@@ -113,7 +113,7 @@ Settings → Actions → General → Workflow permissions
 #### 3. Variables de Entorno (Opcional)
 ```bash
 # .env.local
-NEXT_PUBLIC_SITE_URL=https://alfargenis.github.io/LandingBriochesca
+NEXT_PUBLIC_SITE_URL=https://briochesca.github.io
 NEXT_PUBLIC_BCV_API_KEY=tu_api_key_opcional
 ```
 
@@ -330,13 +330,13 @@ export const metadata: Metadata = {
 ## 📞 Contacto y Soporte
 
 ### Brioches C.A.
-- **Teléfono**: +58 424-123-4567
-- **Email**: info@briochesca.com
-- **Dirección**: Caracas, Venezuela
+- **Teléfonos**: +58 412 958 6725 / +58 414 089 8289
+- **Email**: briochesca@gmail.com
+- **Dirección**: Calle San Carlos Cantarrana Qta Estefani Nro 34, Sector Cerro Sabino, Cumaná, Estado Sucre, Venezuela 6101
 - **WhatsApp**: Pedidos directos vía web
 
 ### Desarrollo Técnico
-- **Repository**: [GitHub/LandingBriochesca](https://github.com/alfargenis/LandingBriochesca)
+- **Repository**: [GitHub/briochesca.github.io](https://github.com/briochesca/briochesca.github.io)
 - **Issues**: Bug reports y feature requests
 - **Discussions**: Ideas y mejoras generales
 

@@ -20,11 +20,11 @@ const BriochesLogo = ({ className = "w-10 h-10" }) => (
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isHydrated, setIsHydrated] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    setIsHydrated(true);
+    setMounted(true);
   }, []);
 
   useEffect(() => {
@@ -53,12 +53,40 @@ export default function Header() {
     { id: "contacto", label: "Contacto" },
   ];
 
+  // Don't render until mounted to avoid hydration issues
+  if (!mounted) {
+    return (
+      <header className="fixed top-0 w-full z-50 transition-all duration-500 bg-transparent">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16 lg:h-20">
+            <div className="flex items-center space-x-3 cursor-pointer group">
+              <BriochesLogo className="w-8 h-8 lg:w-10 lg:h-10 group-hover:scale-110 transition-transform duration-300" />
+              <div className="flex flex-col">
+                <span className="font-black text-lg lg:text-xl tracking-tight text-white">
+                  BRIOCHES
+                </span>
+                <span className="text-xs font-medium -mt-1 text-gray-200">
+                  C.A.
+                </span>
+              </div>
+            </div>
+            <div className="hidden lg:block">
+              <button className="bg-gradient-wine text-white px-6 py-2.5 rounded-full font-semibold text-sm">
+                Ver Catálogo
+              </button>
+            </div>
+          </div>
+        </nav>
+      </header>
+    )
+  }
+
   return (
     <>
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-          isScrolled 
-            ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100" 
+          isScrolled
+            ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100"
             : "bg-transparent"
         }`}
       >
@@ -92,8 +120,8 @@ export default function Header() {
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   className={`relative font-semibold text-sm uppercase tracking-wide transition-all duration-300 group ${
-                    isScrolled 
-                      ? "text-gray-700 hover:text-primary-wine" 
+                    isScrolled
+                      ? "text-gray-700 hover:text-primary-wine"
                       : "text-white/90 hover:text-white"
                   }`}
                 >
@@ -108,10 +136,10 @@ export default function Header() {
             {/* CTA Button */}
             <div className="hidden lg:block">
               <button
-                onClick={() => isHydrated && router.push('/catalogo-productos')}
+                onClick={() => router.push('/catalogo-productos')}
                 className="bg-gradient-wine text-white px-6 py-2.5 rounded-full font-semibold text-sm hover:shadow-lg hover:scale-105 transition-all duration-300 hover:shadow-wine-500/25"
               >
-                {isHydrated ? 'Ver Catálogo' : 'Contáctanos'}
+                Ver Catálogo
               </button>
             </div>
 
@@ -120,8 +148,8 @@ export default function Header() {
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className={`p-2 rounded-md transition-colors duration-300 ${
-                  isScrolled 
-                    ? "text-gray-700 hover:text-primary-wine hover:bg-gray-100" 
+                  isScrolled
+                    ? "text-gray-700 hover:text-primary-wine hover:bg-gray-100"
                     : "text-white hover:text-gray-200 hover:bg-white/10"
                 }`}
               >
@@ -156,14 +184,12 @@ export default function Header() {
               ))}
               <button
                 onClick={() => {
-                  if (isHydrated) {
-                    router.push('/catalogo-productos');
-                    setIsMobileMenuOpen(false);
-                  }
+                  router.push('/catalogo-productos');
+                  setIsMobileMenuOpen(false);
                 }}
                 className="w-full mt-6 bg-gradient-wine text-white py-3 px-4 rounded-lg font-semibold hover:shadow-lg transition-all duration-300"
               >
-                {isHydrated ? 'Ver Catálogo' : 'Contáctanos'}
+                Ver Catálogo
               </button>
             </div>
           </div>
