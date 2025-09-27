@@ -125,8 +125,8 @@ export default function Hero() {
         </motion.div>
 
         {/* Título principal */}
-        <motion.h1 
-          className="text-5xl sm:text-6xl lg:text-8xl font-black text-white mb-6 leading-none tracking-tight"
+        <motion.h1
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-8xl font-black text-white mb-4 sm:mb-6 leading-none tracking-tight"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
@@ -138,8 +138,8 @@ export default function Hero() {
         </motion.h1>
         
         {/* Subtítulo */}
-        <motion.p 
-          className="text-xl sm:text-2xl lg:text-3xl text-white/90 mb-4 max-w-4xl mx-auto leading-relaxed font-light"
+        <motion.p
+          className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/90 mb-3 sm:mb-4 max-w-4xl mx-auto leading-relaxed font-light"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.6 }}
@@ -148,8 +148,8 @@ export default function Hero() {
         </motion.p>
 
         {/* Descripción */}
-        <motion.p 
-          className="text-lg text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed"
+        <motion.p
+          className="text-sm sm:text-base md:text-lg text-white/80 mb-8 sm:mb-10 lg:mb-12 max-w-3xl mx-auto leading-relaxed px-2 sm:px-0"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
@@ -159,24 +159,24 @@ export default function Hero() {
         </motion.p>
         
         {/* Botones de acción */}
-        <motion.div 
+        <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
         >
-          <motion.button 
+          <motion.button
             onClick={() => scrollToSection("productos")}
-            className="bg-gradient-wine text-white px-8 py-4 rounded-full text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 min-w-[200px]"
+            className="bg-gradient-wine text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             Ver Productos
           </motion.button>
-          
-          <motion.button 
+
+          <motion.button
             onClick={() => scrollToSection("nosotros")}
-            className="border-2 border-white/30 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-sm min-w-[200px]"
+            className="border-2 border-white/30 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:bg-white/10 hover:border-white/50 transition-all duration-300 backdrop-blur-sm"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -185,23 +185,23 @@ export default function Hero() {
         </motion.div>
 
         {/* Indicadores de calidad */}
-        <motion.div 
-          className="flex flex-wrap justify-center gap-8 mt-16 text-white/70"
+        <motion.div
+          className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 mt-8 sm:mt-12 lg:mt-16 text-white/70"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1.2 }}
         >
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-primary-orange rounded-full"></div>
-            <span className="text-sm font-medium">100% Artesanal</span>
+          <div className="flex items-center space-x-1.5 sm:space-x-2">
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary-orange rounded-full"></div>
+            <span className="text-xs sm:text-sm font-medium">100% Artesanal</span>
           </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-primary-green rounded-full"></div>
-            <span className="text-sm font-medium">Ingredientes Premium</span>
+          <div className="flex items-center space-x-1.5 sm:space-x-2">
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary-green rounded-full"></div>
+            <span className="text-xs sm:text-sm font-medium">Ingredientes Premium</span>
           </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-primary-blue rounded-full"></div>
-            <span className="text-sm font-medium">Tradición Familiar</span>
+          <div className="flex items-center space-x-1.5 sm:space-x-2">
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-primary-blue rounded-full"></div>
+            <span className="text-xs sm:text-sm font-medium">Tradición Familiar</span>
           </div>
         </motion.div>
       </div>
