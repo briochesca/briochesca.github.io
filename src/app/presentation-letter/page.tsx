@@ -2,17 +2,18 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { 
-  Instagram, 
-  MessageCircle, 
-  Phone, 
-  MapPin, 
-  Clock, 
+import {
+  Instagram,
+  MessageCircle,
+  Phone,
+  MapPin,
+  Clock,
   Star,
   ExternalLink,
   Utensils,
   ChefHat,
-  Cake
+  Cake,
+  Home
 } from 'lucide-react'
 import { FaWhatsapp } from 'react-icons/fa'
 
@@ -27,6 +28,14 @@ export default function PresentationLetter() {
 
   const contactButtons = [
     {
+      title: "🏠 Visita Nuestra Web",
+      subtitle: "Conoce más sobre nosotros",
+      icon: Home,
+      color: "from-blue-500 to-blue-600",
+      action: () => window.location.href = '/',
+      emoji: "🌐"
+    },
+    {
       title: "¡SÍGUENOS! Instagram Oficial",
       subtitle: "Fotos de nuestros productos frescos diarios",
       icon: Instagram,
@@ -36,7 +45,7 @@ export default function PresentationLetter() {
     },
     {
       title: "ATENCIÓN INMEDIATA",
-      subtitle: "[ORDEN PARA ENTREGA/ENVÍO INMEDIATO]",
+      subtitle: "ORDEN PARA ENTREGA / ENVÍO INMEDIATO",
       icon: FaWhatsapp,
       color: "from-green-500 to-green-600",
       action: () => window.open('https://wa.me/584129586725?text=¡Hola! Me interesa hacer un pedido de Brioches C.A.', '_blank'),
@@ -44,7 +53,7 @@ export default function PresentationLetter() {
     },
     {
       title: "Ventas [Asesor Principal]",
-      subtitle: "[Consultas y Pedidos Especiales]",
+      subtitle: "Consultas y Pedidos Especiales",
       icon: Phone,
       color: "from-wine-600 to-wine-700",
       action: () => copyToClipboard('+58 412 958 6725'),
@@ -52,7 +61,7 @@ export default function PresentationLetter() {
     },
     {
       title: "Catálogo Virtual",
-      subtitle: "[Última actualización: ENERO 2025]",
+      subtitle: "Última actualización: OCTUBRE 2025",
       icon: Cake,
       color: "from-orange-500 to-orange-600",
       action: () => window.open('/catalogo-productos', '_blank'),

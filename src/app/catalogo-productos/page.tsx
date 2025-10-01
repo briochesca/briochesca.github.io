@@ -319,7 +319,7 @@ function CatalogoProductosContent() {
             <h1 className="text-lg sm:text-2xl font-bold text-wine-700 text-center flex-1 mx-4">Catálogo de Productos</h1>
             
             <div className="text-xs sm:text-sm text-gray-600 hidden sm:block">
-              Septiembre 2025
+              Octubre 2025
             </div>
           </div>
         </div>
