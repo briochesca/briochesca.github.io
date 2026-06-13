@@ -80,7 +80,7 @@ export class CurrencyService {
     // Si la API falla, usar valor de respaldo temporal
     return {
       USD: {
-        rate: 160.45, // Valor de respaldo temporal basado en última tasa conocida
+        rate: 582.68, // Valor de respaldo temporal basado en última tasa conocida
         date: new Date().toISOString(),
         source: 'FALLBACK',
         endpoint: 'HARDCODED_FALLBACK'
@@ -190,8 +190,8 @@ export class CurrencyService {
         if (rates && rates.VES) {
           const rate = parseFloat(rates.VES) || 0;
           
-          // Filtrar solo tasas realistas (mayor a 100, menor a 300)
-          if (rate >= 100 && rate <= 300) {
+          // Filtrar solo tasas realistas (mayor a 30, menor a 1500)
+          if (rate >= 30 && rate <= 1500) {
             return {
               USD: {
                 rate: rate,
@@ -212,7 +212,7 @@ export class CurrencyService {
         if (data.rates && data.rates.VES) {
           const rate = parseFloat(data.rates.VES) || 0;
           
-          if (rate >= 100 && rate <= 300) {
+          if (rate >= 30 && rate <= 1500) {
             return {
               USD: {
                 rate: rate,
@@ -239,7 +239,7 @@ export class CurrencyService {
         }
         
         // Filtrar solo tasas realistas
-        if (rate >= 100 && rate <= 300) {
+        if (rate >= 30 && rate <= 1500) {
           return {
             USD: {
               rate: rate,
@@ -313,7 +313,7 @@ export class CurrencyService {
       return Math.round(vesAmount * 100) / 100; // Redondear a 2 decimales
     } catch (error) {
       // Usar tasa de respaldo en lugar de lanzar error
-      return usdAmount * 160.45;
+      return usdAmount * 582.68;
     }
   }
 
@@ -394,7 +394,7 @@ export class CurrencyService {
   private getFallbackRates(): BCVRates {
     return {
       USD: {
-        rate: 160.45, // Último valor conocido que funciona
+        rate: 582.68, // Último valor conocido que funciona
         date: new Date().toISOString(),
         source: 'FALLBACK',
         endpoint: 'MANUAL_FALLBACK'
