@@ -190,8 +190,8 @@ export class CurrencyService {
         if (rates && rates.VES) {
           const rate = parseFloat(rates.VES) || 0;
           
-          // Filtrar solo tasas realistas (mayor a 30, menor a 1500)
-          if (rate >= 30 && rate <= 1500) {
+          // Filtrar solo tasas realistas (mayor a 30, menor a 100000)
+          if (rate >= 30 && rate <= 100000) {
             return {
               USD: {
                 rate: rate,
@@ -212,7 +212,7 @@ export class CurrencyService {
         if (data.rates && data.rates.VES) {
           const rate = parseFloat(data.rates.VES) || 0;
           
-          if (rate >= 30 && rate <= 1500) {
+          if (rate >= 30 && rate <= 100000) {
             return {
               USD: {
                 rate: rate,
@@ -239,7 +239,7 @@ export class CurrencyService {
         }
         
         // Filtrar solo tasas realistas
-        if (rate >= 30 && rate <= 1500) {
+        if (rate >= 30 && rate <= 100000) {
           return {
             USD: {
               rate: rate,
