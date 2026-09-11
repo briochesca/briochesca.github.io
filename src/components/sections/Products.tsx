@@ -124,7 +124,7 @@ export default function Products() {
             transition={{ duration: 0.6, delay: 0.6 }}
             viewport={{ once: true }}
           >
-            Descubre todos nuestros productos, precios y haz tu pedido online
+            Descubre todos nuestros productos y haz tu pedido online
           </motion.p>
         </motion.div>
       </div>

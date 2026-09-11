@@ -176,19 +176,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     message += `🛍️ PRODUCTOS SOLICITADOS:\n\n`
     items.forEach((item, index) => {
       message += `${index + 1}. ${item.name}\n`
-      message += `   • Cantidad: ${item.quantity}\n`
-      message += `   • Precio estimado: ${item.price}\n\n`
+      message += `   • Cantidad: ${item.quantity}\n\n`
     })
 
-    const totals = getTotal();
     message += `📊 RESUMEN DEL PEDIDO:\n`
-    message += `• Total de productos: ${getTotalItems()}\n`
-    message += `• Total estimado: Bs. ${totals.ves.toFixed(2).replace('.', ',')}`
-    if (totals.usd > 0) {
-      message += ` ($${totals.usd.toFixed(2)})`
-    }
-    message += `\n\n`
-    message += '¿Podrían confirmar disponibilidad, precios exactos y tiempo de entrega? ¡Gracias!'
+    message += `• Total de productos: ${getTotalItems()}\n\n`
+    message += '¿Podrían confirmar disponibilidad, precios y tiempo de entrega? ¡Gracias!'
 
     return message
   }

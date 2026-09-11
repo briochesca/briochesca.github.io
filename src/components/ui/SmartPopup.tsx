@@ -148,9 +148,9 @@ export default function SmartPopup({ delay = 10000, showOnCatalog = false }: Sma
                 )}
               </div>
 
-              <div className="flex items-center justify-center text-xs sm:text-sm text-orange-600 mb-4">
+              <div className="flex items-center justify-center text-xs sm:text-sm text-wine-600 mb-4">
                 <Clock className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-                <span className="text-center">Los precios pueden cambiar según la tasa oficial BCV</span>
+                <span className="text-center">Productos frescos horneados bajo pedido</span>
               </div>
 
               <div className="space-y-2 sm:space-y-3">
@@ -195,7 +195,7 @@ export default function SmartPopup({ delay = 10000, showOnCatalog = false }: Sma
                   </div>
                   <div className="flex items-center">
                     <span className="text-green-500 mr-2">✓</span>
-                    <span className="text-gray-700">Precios actualizados según la tasa BCV</span>
+                    <span className="text-gray-700">Cotizaciones personalizadas</span>
                   </div>
                   <div className="flex items-center">
                     <span className="text-green-500 mr-2">✓</span>

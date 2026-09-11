@@ -1,31 +1,23 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { 
   ArrowLeft, 
   Star, 
   Clock, 
   Wheat, 
-  Heart,
-  ChefHat,
-  Coffee,
-  Cake,
-  Cookie,
-  Croissant,
-  MessageCircle,
-  Phone,
-  ShoppingCart,
-  Plus,
-  RefreshCw,
-  DollarSign
+  ChefHat, 
+  Coffee, 
+  Cake, 
+  Phone, 
+  Plus 
 } from 'lucide-react'
 import Image from 'next/image'
 import { FaWhatsapp } from 'react-icons/fa'
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/contexts/CartContext'
 import FloatingCart from '@/components/cart/FloatingCart'
-import { useDynamicPricing } from '@/hooks/useDynamicPricing'
 
 interface Product {
   id: number
@@ -45,16 +37,6 @@ function CatalogoProductosContent() {
   const router = useRouter()
   const [selectedCategory, setSelectedCategory] = useState('todos')
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
-  const { 
-    isLoading: ratesLoading, 
-    error: ratesError, 
-    exchangeRate, 
-    lastUpdated, 
-    rateSource,
-    apiEndpoint,
-    getDisplayPrice, 
-    refreshRates 
-  } = useDynamicPricing()
 
   const categories = [
     { id: 'todos', name: 'Todos', icon: ChefHat },
@@ -283,17 +265,15 @@ function CatalogoProductosContent() {
   const { addToCart } = useCart()
 
   const orderWhatsApp = (product: Product) => {
-    const displayPrice = ratesLoading ? 'Precio pendiente' : getDisplayPrice(product.baseUsdPrice, true)
-    const message = `¡Hola! Me interesa ordenar: ${product.name} - ${displayPrice}`
+    const message = `¡Hola! Me interesa ordenar: ${product.name}`
     window.open(`https://wa.me/584129586725?text=${encodeURIComponent(message)}`, '_blank')
   }
 
   const handleAddToCart = (product: Product) => {
-    const displayPrice = ratesLoading ? 'Precio pendiente' : getDisplayPrice(product.baseUsdPrice, true)
     addToCart({
       id: product.id,
       name: product.name,
-      price: displayPrice,
+      price: '',
       image: product.image,
       category: product.category
     })
@@ -326,34 +306,6 @@ function CatalogoProductosContent() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Exchange Rate Info - Subtle Corner */}
-        <div className="mb-6 flex justify-end">
-          <div className="inline-flex items-center space-x-2 text-sm text-gray-600 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm border border-gray-200/50">
-            <DollarSign className="w-3.5 h-3.5" />
-            <span className="font-medium">
-              {ratesLoading ? 'Cargando...' : 
-                exchangeRate > 0 ? `${exchangeRate.toFixed(2)} Bs/$` : 'Error'}
-            </span>
-            {!ratesLoading && rateSource && (
-              <span className={`w-2 h-2 rounded-full ${
-                rateSource === 'API' ? 'bg-green-500' :
-                rateSource === 'CACHE' ? 'bg-blue-500' :
-                'bg-orange-500'
-              }`} title={rateSource === 'API' ? 'En vivo' : rateSource === 'CACHE' ? 'Cache' : 'Respaldo'}>
-              </span>
-            )}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={refreshRates}
-              disabled={ratesLoading}
-              className="text-gray-500 hover:text-gray-700 disabled:opacity-50 ml-1"
-            >
-              <RefreshCw className={`w-3 h-3 ${ratesLoading ? 'animate-spin' : ''}`} />
-            </motion.button>
-          </div>
-        </div>
-
         {/* Category Filter */}
         <div className="mb-8">
           <div className="flex flex-wrap gap-2 sm:gap-3 justify-center px-2">
@@ -418,19 +370,11 @@ function CatalogoProductosContent() {
                   {product.description}
                 </p>
 
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 sm:mb-4">
-                  <div className="space-y-1">
-                    <div className="text-base sm:text-lg font-bold text-green-600">
-                      {ratesLoading ? 'Calculando...' : getDisplayPrice(product.baseUsdPrice, false)}
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      Base: ${product.baseUsdPrice.toFixed(2)} USD
-                    </div>
-                    <div className="text-xs text-wine-600 font-medium">
-                      {product.quantity}
-                    </div>
+                <div className="flex items-center justify-between mb-3 sm:mb-4">
+                  <div className="inline-flex items-center px-2.5 py-1 rounded-md bg-wine-50 text-wine-700 text-xs font-semibold">
+                    {product.quantity}
                   </div>
-                  <div className="flex items-center justify-end text-xs text-gray-500 min-h-[2.5rem] sm:min-h-[1.5rem] sm:text-right">
+                  <div className="flex items-center justify-end text-xs text-gray-500 min-h-[1.5rem] text-right">
                     {product.preparationTime.includes('refrigeración') ? (
                       <div className="flex flex-col items-end">
                         <div className="flex items-center space-x-1">
@@ -560,18 +504,9 @@ function CatalogoProductosContent() {
                 {selectedProduct.name}
               </h2>
               <p className="text-gray-600 mb-4">{selectedProduct.description}</p>
-              <div className="space-y-2 mb-4">
-                <div className="text-xl font-bold text-green-600">
-                  {ratesLoading ? 'Calculando...' : getDisplayPrice(selectedProduct.baseUsdPrice, false)}
-                </div>
-                <div className="text-sm text-gray-500">
-                  Precio base: ${selectedProduct.baseUsdPrice.toFixed(2)} USD
-                </div>
-                <div className="text-sm text-wine-600 font-medium">
+              <div className="mb-4">
+                <div className="inline-block bg-wine-50 text-wine-700 px-3 py-1 rounded-full text-sm font-semibold">
                   {selectedProduct.quantity}
-                </div>
-                <div className="text-xs text-gray-400">
-                  Tasa BCV: {exchangeRate > 0 ? `${exchangeRate.toFixed(4)} Bs/$` : 'N/A'} • {lastUpdated ? new Date(lastUpdated).toLocaleDateString('es-VE') : 'Fecha no disponible'}
                 </div>
               </div>
             </div>

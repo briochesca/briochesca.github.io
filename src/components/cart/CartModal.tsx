@@ -162,27 +162,16 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
                 {/* Footer Actions */}
                 {items.length > 0 && (
                   <div className="p-4 sm:p-6 border-t border-gray-200 space-y-4">
-                    {/* Totales */}
+                    {/* Resumen del pedido */}
                     <div className="bg-gray-50 rounded-lg p-4 space-y-2">
                       <div className="flex justify-between items-center text-sm">
-                        <span className="text-gray-600">Subtotal ({getTotalItems()} productos):</span>
+                        <span className="text-gray-600">Total de productos:</span>
                         <div className="text-right">
-                          <div className="font-medium">Bs. {getSubtotal().ves.toFixed(2).replace('.', ',')}</div>
-                          {getSubtotal().usd > 0 && (
-                            <div className="text-xs text-gray-500">${getSubtotal().usd.toFixed(2)}</div>
-                          )}
+                          <span className="font-bold text-base text-wine-700">{getTotalItems()} {getTotalItems() === 1 ? 'producto' : 'productos'}</span>
                         </div>
                       </div>
-                      <div className="border-t border-gray-200 pt-2">
-                        <div className="flex justify-between items-center">
-                          <span className="font-semibold text-wine-700">Total Estimado:</span>
-                          <div className="text-right">
-                            <div className="font-bold text-lg text-wine-700">Bs. {getTotal().ves.toFixed(2).replace('.', ',')}</div>
-                            {getTotal().usd > 0 && (
-                              <div className="text-sm text-wine-600">${getTotal().usd.toFixed(2)}</div>
-                            )}
-                          </div>
-                        </div>
+                      <div className="border-t border-gray-200 pt-2 text-xs text-gray-500">
+                        Los precios actualizados y disponibilidad serán confirmados directamente al enviar tu pedido.
                       </div>
                     </div>
 
@@ -193,8 +182,8 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
                           <span className="text-white text-xs font-bold">!</span>
                         </div>
                         <div className="text-xs text-orange-800">
-                          <p className="font-semibold mb-1">Precios Estimados</p>
-                          <p>Los precios mostrados son estimados y pueden variar al momento de la cotización final. Confirmaremos disponibilidad y precios exactos por WhatsApp.</p>
+                          <p className="font-semibold mb-1">Cotización por WhatsApp</p>
+                          <p>Confirmaremos disponibilidad, precios actualizados y detalles de entrega directamente por WhatsApp.</p>
                         </div>
                       </div>
                     </div>
@@ -231,8 +220,8 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-gray-600">Resumen del pedido:</span>
                       <div className="text-right">
-                        <div className="font-medium text-wine-700">{getTotalItems()} productos</div>
-                        <div className="font-bold text-wine-700">Bs. {getTotal().ves.toFixed(2).replace('.', ',')}</div>
+                        <div className="font-medium text-wine-700">{getTotalItems()} {getTotalItems() === 1 ? 'producto' : 'productos'}</div>
+                        <div className="text-xs text-green-600 font-semibold">Cotización vía WhatsApp</div>
                       </div>
                     </div>
                   </div>

@@ -43,9 +43,11 @@ export default function CartItem({ item }: CartItemProps) {
         <h4 className="text-sm font-medium text-wine-700 truncate">
           {item.name}
         </h4>
-        <p className="text-xs text-green-600 font-semibold">
-          {item.price}
-        </p>
+        {item.price ? (
+          <p className="text-xs text-green-600 font-semibold">
+            {item.price}
+          </p>
+        ) : null}
       </div>
 
       {/* Quantity Controls */}
